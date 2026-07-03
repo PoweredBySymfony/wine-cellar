@@ -6,6 +6,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{% static 'base.css' %}">
+        <script defer src="{% static 'base.js' %}"></script>
         <link rel="icon"
               type="image/x-icon"
               href="{% static 'images/favicon.svg' %}">
@@ -44,9 +45,9 @@
                     <div class="site-nav__panel">
                         {% if user.is_authenticated %}
                             <ul class="site-nav__links">
-                                <li><a href="{% url 'homepage' %}"{% if request.resolver_match.url_name == 'homepage' %} aria-current="page"{% endif %}>{% translate "My cellar" %}</a></li>
-                                <li><a href="{% url 'wine-list' %}"{% if request.resolver_match.url_name == 'wine-list' %} aria-current="page"{% endif %}>{% translate "Wines" %}</a></li>
-                                <li><a href="{% url 'storage-list' %}"{% if 'storage' in request.resolver_match.url_name %} aria-current="page"{% endif %}>{% translate "Storage" %}</a></li>
+                                <li><a href="{% url 'homepage' %}"{% if request.resolver_match.url_name == 'homepage' %} aria-current="page"{% endif %}>{% translate "Overview" %}</a></li>
+                                <li><a href="{% url 'wine-list' %}"{% if request.resolver_match.url_name == 'wine-list' %} aria-current="page"{% endif %}>{% translate "My selection" %}</a></li>
+                                <li><a href="{% url 'storage-list' %}"{% if 'storage' in request.resolver_match.url_name %} aria-current="page"{% endif %}>{% translate "My cellar" %}</a></li>
                                 <li><a href="{% url 'wine-map' %}"{% if request.resolver_match.url_name == 'wine-map' %} aria-current="page"{% endif %}>{% translate "Map" %}</a></li>
                                 <li><a href="{% url 'user-settings' %}"{% if request.resolver_match.url_name == 'user-settings' %} aria-current="page"{% endif %}>{% translate "Settings" %}</a></li>
                             </ul>

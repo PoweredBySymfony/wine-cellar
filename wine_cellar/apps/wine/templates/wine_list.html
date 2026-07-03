@@ -4,74 +4,75 @@
     {{ block.super }}
     <script src="{% static 'tom_select.js' %}" type="module" defer></script>
 {% endblock extra_js %}
-{% block header %}
-    <h1 class="header__title">{% translate 'Wine List' %}</h1>
-{% endblock header %}
 {% block content %}
-    <div class="pure-g">
-        <div class="pure-u-1 pure-u-sm-9-24 pure-u-md-7-24 wine-list__filter-col">
-            {# TODO: extract form into own template and style #}
-            <!-- Filter toggle -->
-            <div class="filter-form__sm-container">
-                <details>
-                    <summary>
-                        <h2 class="filter-form__header">{% translate "Filter & Sorting" %}</h2>
-                    </summary>
-                    <div>
-                        <form action="."
-                              method="get"
-                              class="filter-form pure-form pure-form-stacked">
-                            <fieldset>
-                                <legend class="filter-legend">{% translate 'Narrow Your Selection' %}</legend>
-                                {% for field in filter.form %}
-                                    {% include "wine_filter_field.html" %}
-                                {% endfor %}
-                            </fieldset>
-                            <a href="?"
-                               role="button"
-                               class="pure-button button__secondary"
-                               aria-label='{% translate "Clear all filters and reset the form" %}'>
-                                {% translate "Clear" %}
-                            </a>
-                            <button type="submit" class="pure-button button__primary">{% translate "Filter" %}</button>
-                        </form>
-                    </div>
-                </details>
+    <section class="selection">
+        <header class="selection__header">
+            <div>
+                <h1>{% translate "My selection" %}</h1>
+                <p>
+                    {% blocktranslate trimmed count counter=page_obj.paginator.count %}
+                        {{ counter }} wine · sorted by recent additions
+                    {% plural %}
+                        {{ counter }} wines · sorted by recent additions
+                    {% endblocktranslate %}
+                </p>
             </div>
-            <!-- Filter toggle ends-->
-            <form action="."
-                  method="get"
-                  class="filter-form--lg pure-form pure-form-stacked">
-                <fieldset>
-                    <div class="filter-legend">
-                        <legend>
-                            <h3 class="text-align-left">{% translate "Filter & Sorting" %}</h3>
-                        </legend>
-                    </div>
-                    {% for field in filter.form %}
-                        {% include "wine_filter_field.html" %}
-                    {% endfor %}
-                </fieldset>
-                <a href="?"
-                   role="button"
-                   class="pure-button button__secondary"
-                   aria-label='{% translate "Clear all filters and reset the form" %}'>{% translate "Clear" %}</a>
-                <button type="submit" class="pure-button button__primary">{% translate "Filter" %}</button>
+            <form action="." method="get" class="selection__search" role="search">
+                <label class="visually-hidden" for="selection-search">{% translate "Search wines" %}</label>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+                <input id="selection-search"
+                       type="search"
+                       name="name"
+                       value="{{ request.GET.name }}"
+                       placeholder="{% translate "Search for a wine, estate or grape" %}">
             </form>
-        </div>
-        <div class="pure-u-1 pure-u-sm-15-24 pure-u-md-17-24">
-            <ul class="wine-card__list">
-                {% for wine in wines %}
-                    {% include 'wine_card.html' with wine=wine %}
-                {% empty %}
-                    <div class="pure-u-1 m-auto">
-                        <p>
-                            <strong>{% translate "There are no wines yet." %}</strong>
-                        </p>
+        </header>
+
+        <div class="selection__layout">
+            <aside class="selection__filters">
+                <div class="selection__filter-heading">
+                    <h2>{% translate "Filters" %}</h2>
+                    <span>{{ page_obj.paginator.count }} {% translate "wines" %}</span>
+                </div>
+                <div class="selection__quick-filter">
+                    <h3>{% translate "Type" %}</h3>
+                    <div class="selection__chips">
+                        <a href="?wine_type=RE"{% if request.GET.wine_type == "RE" %} aria-current="true"{% endif %}>{% translate "Red" %}</a>
+                        <a href="?wine_type=WH"{% if request.GET.wine_type == "WH" %} aria-current="true"{% endif %}>{% translate "White" %}</a>
+                        <a href="?wine_type=RO"{% if request.GET.wine_type == "RO" %} aria-current="true"{% endif %}>{% translate "Rose" %}</a>
+                        <a href="?wine_type=SP"{% if request.GET.wine_type == "SP" %} aria-current="true"{% endif %}>{% translate "Sparkling" %}</a>
                     </div>
-                {% endfor %}
-            </ul>
-            {% include "includes/pagination.html" %}
+                </div>
+                <details class="selection__advanced">
+                    <summary>{% translate "More filters" %}</summary>
+                    <form action="." method="get" class="filter-form pure-form pure-form-stacked">
+                        <fieldset>
+                            {% for field in filter.form %}
+                                {% include "wine_filter_field.html" %}
+                            {% endfor %}
+                        </fieldset>
+                        <div class="selection__filter-actions">
+                            <a href="?" class="pure-button button__secondary">{% translate "Clear" %}</a>
+                            <button type="submit" class="pure-button button__primary">{% translate "Apply filters" %}</button>
+                        </div>
+                    </form>
+                </details>
+            </aside>
+
+            <div class="selection__results">
+                <ul class="wine-card__list">
+                    {% for wine in wines %}
+                        {% include 'wine_card.html' with wine=wine %}
+                    {% empty %}
+                        <li class="selection__empty">
+                            <h2>{% translate "Your selection is empty" %}</h2>
+                            <p>{% translate "Add your first wine or clear the active filters." %}</p>
+                            <a href="{% url 'wine-add-choose' %}" class="site-nav__add">{% translate "Add wine" %}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% include "includes/pagination.html" %}
+            </div>
         </div>
-    </div>
+    </section>
 {% endblock content %}

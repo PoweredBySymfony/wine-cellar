@@ -1,6 +1,10 @@
 {% load static i18n %}
 <li class="wine-card">
     <div class="wine-card__image-wrapper">
+        <span class="wine-card__type wine-card__type--{{ wine.wine_type|lower }}">{{ wine.get_type }}</span>
+        <span class="wine-card__stock-badge">
+            {% if wine.total_stock %}{% blocktranslate with count=wine.total_stock %}{{ count }} bt.{% endblocktranslate %}{% else %}{% translate "Out of stock" %}{% endif %}
+        </span>
         <img src="{{ wine.image_thumbnail }}"
              class="wine-card__img"
              height="160"
@@ -9,15 +13,17 @@
              alt="{% blocktranslate with type=wine.get_type %}Image of a glass of {{ type }} wine{% endblocktranslate %}">
     </div>
     <div class="wine-card__detail-container">
+        <div class="wine-card__meta">
+            {% if wine.get_vineyards %}<span>{{ wine.get_vineyards|truncatechars:25 }}</span>{% endif %}
+            {% if wine.vintage %}<strong>{{ wine.vintage }}</strong>{% endif %}
+        </div>
         <h2 class="wine-card__title">
             <a class="wine-card__link" href="{% url 'wine-detail' wine.pk %}">{{ wine.name }}</a>
         </h2>
         {% if wine.get_grapes %}
             <p><span class="text--gray">{% translate "Grapes" %}:</span> {{ wine.get_grapes | truncatechars:31 | title }}</p>
         {% endif %}
-        {% if wine.vintage %}
-            <p><span class="text--gray">{% translate "Vintage" %}:</span> {{ wine.vintage }}</p>
-        {% endif %}
+        {% if wine.region %}<p class="wine-card__region">{{ wine.region }}</p>{% endif %}
         {% if wine.drink_by %}
             <p>
                 <span class="text--gray">{% translate "Drink By" %}:</span> {{ wine.drink_by }}
@@ -35,6 +41,6 @@
         {% endif %}
     </div>
     <div class="wine-card__stock">
-        <p>{% translate "Stock:" %} {{ wine.total_stock }}</p>
+        <a href="{% url 'stock-add' wine.pk %}" class="wine-card__stock-action"><span aria-hidden="true">＋</span> {% translate "Stock" %}</a>
     </div>
 </li>

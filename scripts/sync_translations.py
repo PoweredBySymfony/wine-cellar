@@ -9,6 +9,17 @@ import polib
 ROOT = Path(__file__).resolve().parents[1]
 
 FR = {
+    "%(count)s bt.": "%(count)s bt.",
+    "Out of stock": "Rupture",
+    "My selection": "Ma sélection",
+    "Search wines": "Rechercher des vins",
+    "Search for a wine, estate or grape": "Rechercher un vin, un domaine ou un cépage",
+    "Filters": "Filtres",
+    "wines": "vins",
+    "More filters": "Plus de filtres",
+    "Apply filters": "Appliquer les filtres",
+    "Your selection is empty": "Votre sélection est vide",
+    "Add your first wine or clear the active filters.": "Ajoutez votre premier vin ou effacez les filtres actifs.",
     "Default Shelf": "Étagère par défaut",
     "Default storage for wines": "Stockage par défaut pour les vins",
     "Cellar": "Cave",
@@ -42,6 +53,17 @@ FR = {
 }
 
 DE = {
+    "%(count)s bt.": "%(count)s Fl.",
+    "Out of stock": "Nicht vorrätig",
+    "My selection": "Meine Auswahl",
+    "Search wines": "Weine suchen",
+    "Search for a wine, estate or grape": "Nach Wein, Weingut oder Rebsorte suchen",
+    "Filters": "Filter",
+    "wines": "Weine",
+    "More filters": "Weitere Filter",
+    "Apply filters": "Filter anwenden",
+    "Your selection is empty": "Ihre Auswahl ist leer",
+    "Add your first wine or clear the active filters.": "Fügen Sie Ihren ersten Wein hinzu oder löschen Sie die aktiven Filter.",
     "Default Shelf": "Standardregal",
     "Default storage for wines": "Standardlager für Weine",
     "Cellar": "Keller",
@@ -121,6 +143,19 @@ def apply(locale: str, translations: dict[str, str]) -> None:
         if locale == "de_DE" and entry.msgid in DE_PLURALS:
             singular, plural = DE_PLURALS[entry.msgid]
             entry.msgstr_plural = {"0": singular, "1": plural}
+            entry.flags = [flag for flag in entry.flags if flag != "fuzzy"]
+        if entry.msgid.strip() == "%(counter)s wine · sorted by recent additions":
+            if locale == "fr_FR":
+                entry.msgstr_plural = {
+                    "0": "%(counter)s vin · classé par ajout récent",
+                    "1": "%(counter)s vin · classé par ajout récent",
+                    "2": "%(counter)s vins · classés par ajouts récents",
+                }
+            else:
+                entry.msgstr_plural = {
+                    "0": "%(counter)s Wein · nach neuesten Einträgen sortiert",
+                    "1": "%(counter)s Weine · nach neuesten Einträgen sortiert",
+                }
             entry.flags = [flag for flag in entry.flags if flag != "fuzzy"]
     catalog.save(path)
 

@@ -77,9 +77,9 @@ def test_header_language_switches_to_french(client, user):
 @pytest.mark.parametrize(
     ("language", "expected"),
     [
-        ("fr-FR", ("Liste des vins", "Filtre et tri", "Type de vin", "Allemagne")),
-        ("de-DE", ("Weinliste", "Filtern & Sortierung", "Weinart", "Frankreich")),
-        ("en-gb", ("Wine List", "Filter & Sorting", "Wine Type")),
+        ("fr-FR", ("Ma sélection", "Filtres", "Type de vin", "Allemagne")),
+        ("de-DE", ("Meine Auswahl", "Filter", "Weinart", "Frankreich")),
+        ("en-gb", ("My selection", "Filters", "Wine Type")),
     ],
 )
 def test_wine_list_is_translated_for_every_supported_language(

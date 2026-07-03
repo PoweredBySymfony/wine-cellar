@@ -31,9 +31,7 @@ class NullsLastOrderingFilter(OrderingFilter):
 
 
 class WineFilter(django_filters.FilterSet):
-    name = django_filters.CharFilter(
-        label=_("Name contains"), field_name="name", lookup_expr="icontains"
-    )
+    name = django_filters.CharFilter(label=_("Name contains"), method="filter_search")
     stock = ChoiceFilter(
         method="filter_stock",
         label=_("Show only in stock"),
@@ -65,6 +63,17 @@ class WineFilter(django_filters.FilterSet):
             ).distinct()
         else:
             return queryset
+
+    def filter_search(self, queryset, name, value):
+        if not value:
+            return queryset
+        return queryset.filter(
+            Q(name__icontains=value)
+            | Q(vineyard__name__icontains=value)
+            | Q(grapes__name__icontains=value)
+            | Q(region__name__icontains=value)
+            | Q(country__icontains=value)
+        ).distinct()
 
     class Meta:
         form = WineFilterForm
