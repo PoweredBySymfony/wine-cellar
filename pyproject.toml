@@ -81,7 +81,14 @@ exclude = '''
 ''''
 
 [tool.coverage.run]
-omit = ["wine_cellar/conf/*","**/tests/*", "**/migrations/*"]
+source = ["wine_cellar"]
+branch = true
+omit = ["wine_cellar/conf/*", "**/tests/*", "**/migrations/*"]
+
+[tool.coverage.report]
+fail_under = 80
+show_missing = true
+skip_covered = false
 
 [tool.commitizen]
 name = "cz_customize"

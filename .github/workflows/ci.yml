@@ -1,73 +1,140 @@
-name: Django CI
+name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - "**"
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
+  workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  build:
+  quality:
+    name: Test, lint, and build
     runs-on: ubuntu-24.04
-    services:
-      postgres:
-        image: postgres:16
-        env:
-          POSTGRES_PASSWORD: postgres
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+    timeout-minutes: 20
+
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
-      - name: Install uv
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          fetch-depth: 0
+
+      - name: Install uv and Python
         uses: astral-sh/setup-uv@fac544c07dec837d0ccb6301d7b5580bf5edae39 # v8.2.0
         with:
-          python-version: '3.13'
+          python-version: "3.13"
           enable-cache: true
-      - name: Setup Node
+
+      - name: Setup Node.js
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
         with:
-          node-version: '24.x'
-      - name: Setup Postgres
-        env:
-          PGPASSWORD: postgres
-          PGHOSTADDR: 127.0.0.1
+          node-version: "24.x"
+          cache: npm
+
+      - name: Install dependencies
         run: |
-          psql -c 'create database django;' -U postgres
-          psql -c 'create database django_test;' -U postgres
-      - name: Cache node modules
-        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5
-        env:
-          cache-name: cache-node-modules
+          uv sync --locked
+          npm ci
+
+      - name: Build frontend assets required by Django tests
+        run: npm run build
+
+      - name: Django checks
+        run: |
+          uv run python manage.py check
+          uv run python manage.py makemigrations --dry-run --check --noinput
+
+      - name: Python quality
+        run: |
+          uv run isort --diff --check-only wine_cellar tests
+          uv run black --check --exclude '/migrations/' wine_cellar tests
+          uv run flake8 wine_cellar tests --exclude migrations,settings
+
+      - name: Frontend quality
+        run: npm run lint
+
+      - name: Test with 80% coverage gate
+        run: >-
+          uv run pytest
+          --cov=wine_cellar
+          --cov-report=term-missing
+          --cov-report=xml:coverage.xml
+          --cov-fail-under=80
+          --junitxml=test-results.xml
+
+      - name: Production frontend build
+        run: npm run build:prod
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v6
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - name: Install Dependencies
-        run: |
-          npm install
-          npm run build
-          uv sync
-          echo "$GITHUB_WORKSPACE/.venv/bin" >> $GITHUB_PATH
-      - name: Run Tests
-        env:
-          PGPASSWORD: postgres
-          PGHOSTADDR: 127.0.0.1
-        run: |
-          python manage.py collectstatic > /dev/null
-          py.test --cov
-          isort --diff -c wine_cellar tests
-          python manage.py makemigrations --dry-run --check --noinput
-          flake8 wine_cellar tests --exclude migrations,settings
+          name: quality-reports
+          path: |
+            coverage.xml
+            test-results.xml
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Coveralls
+        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false
         uses: coverallsapp/github-action@5cbfd81b66ca5d10c19b062c04de0199c215fb6e # v2
+
+  sonarqube:
+    name: SonarQube Server
+    needs: quality
+    if: github.event_name != 'pull_request'
+    runs-on: [self-hosted, local-sonarqube]
+    timeout-minutes: 30
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          fetch-depth: 0
+
+      - name: Install uv and Python
+        uses: astral-sh/setup-uv@fac544c07dec837d0ccb6301d7b5580bf5edae39 # v8.2.0
+        with:
+          python-version: "3.13"
+          enable-cache: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
+        with:
+          node-version: "24.x"
+          cache: npm
+
+      - name: Install dependencies
+        run: |
+          uv sync --locked
+          npm ci
+
+      - name: Build assets and generate coverage
+        run: |
+          npm run build
+          uv run pytest --cov=wine_cellar --cov-report=xml:coverage.xml --cov-fail-under=80
+
+      - name: Validate SonarQube configuration
+        shell: bash
+        run: |
+          test -n "$SONAR_TOKEN" || { echo "Missing SONAR_TOKEN secret"; exit 1; }
+          test -n "$SONAR_HOST_URL" || { echo "Missing SONAR_HOST_URL secret"; exit 1; }
+
+      - name: SonarQube scan and Quality Gate
+        uses: SonarSource/sonarqube-scan-action@v7
+        env:
+          SONAR_TOKEN: ${{ env.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ env.SONAR_HOST_URL }}

@@ -1,5 +1,7 @@
 db.sqlite3
 .coverage
+coverage.xml
+test-results.xml
 test_db.sqlite3
 venv/
 .idea/
