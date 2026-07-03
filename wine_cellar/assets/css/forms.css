@@ -346,6 +346,18 @@ p.form-hint {
   margin: 0 auto 12px auto;
 }
 
+.scanner-error {
+  max-width: 52ch;
+  margin: 0 auto 1rem;
+  padding: 0.85rem 1rem;
+  color: #64283c;
+  background: #fff0f0;
+  border: 1px solid #dc8ca0;
+  border-radius: 12px;
+  line-height: 1.45;
+  text-align: center;
+}
+
 .scan-page__helptext {
   color: var(--text-color-gray);
   margin: 0 0 1.25rem 0;

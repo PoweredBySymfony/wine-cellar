@@ -1,6 +1,6 @@
 import { BarcodeDetector, prepareZXingModule } from 'barcode-detector/ponyfill'
 import django from 'django'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { BarcodeScanner, type DetectedBarcode } from 'react-barcode-scanner'
 import { createRoot } from 'react-dom/client'
 
@@ -11,6 +11,16 @@ const translated = {
   ),
   scan_barcode: django.gettext('Scan Barcode'),
   close_barcode: django.gettext('Close Scanner'),
+  camera_loading: django.gettext('Opening camera…'),
+  insecure_context: django.gettext(
+    'Camera access requires HTTPS on a phone. Open this page through a secure HTTPS address.'
+  ),
+  camera_unavailable: django.gettext(
+    'No camera is available, or this browser does not support camera access.'
+  ),
+  camera_denied: django.gettext(
+    'Camera access was denied. Allow camera access in your browser settings, then try again.'
+  ),
 }
 
 const Scanner = ({
@@ -21,14 +31,62 @@ const Scanner = ({
   autoOpen?: boolean
 }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [selectedFormat, setSelectedFormat] = useState('any')
-  const defaultFormats = ['ean_13', 'ean_8', 'upc_a', 'code_39', 'itf']
+  const [isStarting, setIsStarting] = useState(false)
+  const [cameraError, setCameraError] = useState('')
+  const [selectedFormat, setSelectedFormat] = useState('')
+  const defaultFormats = [
+    'ean_13',
+    'ean_8',
+    'upc_a',
+    'upc_e',
+    'code_39',
+    'code_93',
+    'code_128',
+    'itf',
+    'qr_code',
+  ]
+
+  const openScanner = useCallback(async () => {
+    setCameraError('')
+
+    if (!window.isSecureContext) {
+      setCameraError(translated.insecure_context)
+      return
+    }
+    if (!navigator.mediaDevices?.getUserMedia) {
+      setCameraError(translated.camera_unavailable)
+      return
+    }
+
+    setIsStarting(true)
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: { facingMode: { ideal: 'environment' } },
+      })
+      for (const track of stream.getTracks()) {
+        track.stop()
+      }
+      setIsOpen(true)
+    } catch (error) {
+      const permissionDenied =
+        error instanceof DOMException &&
+        (error.name === 'NotAllowedError' || error.name === 'SecurityError')
+      setCameraError(
+        permissionDenied
+          ? translated.camera_denied
+          : translated.camera_unavailable
+      )
+    } finally {
+      setIsStarting(false)
+    }
+  }, [])
 
   useEffect(() => {
     if (autoOpen) {
-      setIsOpen(true)
+      openScanner().catch(console.error)
     }
-  }, [autoOpen])
+  }, [autoOpen, openScanner])
 
   const handleCapture = (barcodes: DetectedBarcode[]) => {
     const firstBarcode = barcodes[0]
@@ -51,10 +109,26 @@ const Scanner = ({
       <button
         type="button"
         className="pure-button button__secondary form__scanner__button"
-        onClick={() => setIsOpen(!isOpen)}
+        disabled={isStarting}
+        onClick={() => {
+          if (isOpen) {
+            setIsOpen(false)
+          } else {
+            openScanner().catch(console.error)
+          }
+        }}
       >
-        {isOpen ? translated.close_barcode : translated.scan_barcode}
+        {isStarting
+          ? translated.camera_loading
+          : isOpen
+            ? translated.close_barcode
+            : translated.scan_barcode}
       </button>
+      {cameraError && (
+        <p className="scanner-error" role="alert">
+          {cameraError}
+        </p>
+      )}
       {isOpen && (
         <>
           <section className="form__scanner__details">
@@ -77,6 +151,7 @@ const Scanner = ({
                 <option value="itf">ITF</option>
                 <option value="upc_a">UPC-A</option>
                 <option value="upc_e">UPC-E</option>
+                <option value="qr_code">QR Code</option>
               </select>
             </details>
           </section>

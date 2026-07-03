@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-21 09:11+0200\n"
+"POT-Creation-Date: 2026-07-03 19:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,6 +60,32 @@ msgstr "Scanner le code-barre"
 msgid "Close Scanner"
 msgstr "Fermer le scanner"
 
-#: wine_cellar/react/react_bar_code.tsx:71
+#: wine_cellar/react/react_bar_code.tsx:14
+msgid "Opening camera…"
+msgstr "Ouverture de la caméra…"
+
+#: wine_cellar/react/react_bar_code.tsx:16
+msgid ""
+"Camera access requires HTTPS on a phone. Open this page through a secure "
+"HTTPS address."
+msgstr ""
+"L’accès à la caméra nécessite HTTPS sur un téléphone. Ouvrez cette page avec"
+" une adresse HTTPS sécurisée."
+
+#: wine_cellar/react/react_bar_code.tsx:19
+msgid ""
+"No camera is available, or this browser does not support camera access."
+msgstr ""
+"Aucune caméra n’est disponible ou ce navigateur ne permet pas d’y accéder."
+
+#: wine_cellar/react/react_bar_code.tsx:22
+msgid ""
+"Camera access was denied. Allow camera access in your browser settings, then"
+" try again."
+msgstr ""
+"L’accès à la caméra a été refusé. Autorisez-le dans les paramètres du "
+"navigateur, puis réessayez."
+
+#: wine_cellar/react/react_bar_code.tsx:145
 msgid "All"
 msgstr "Tout"

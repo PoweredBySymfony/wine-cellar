@@ -23,8 +23,9 @@ def test_homepage(client, user):
     client.force_login(user)
     r = client.get(reverse("homepage"), follow=True)
     assert r.status_code == HTTPStatus.OK
+    assertRedirects(response=r, expected_url=reverse("wine-list"))
     assertTemplateUsed(response=r, template_name="base.html")
-    assertTemplateUsed(response=r, template_name="homepage.html")
+    assertTemplateUsed(response=r, template_name="wine_list.html")
     assertTemplateNotUsed(response=r, template_name="account/login.html")
 
 
@@ -43,13 +44,14 @@ def test_homepage_stats(client, user, wine_factory, storage_item_factory):
     client.force_login(user)
     r = client.get(reverse("homepage"), follow=True)
     assert r.status_code == HTTPStatus.OK
+    assertRedirects(response=r, expected_url=reverse("wine-list"))
     assertTemplateUsed(response=r, template_name="base.html")
-    assertTemplateUsed(response=r, template_name="homepage.html")
+    assertTemplateUsed(response=r, template_name="wine_list.html")
     assertTemplateNotUsed(response=r, template_name="registration/login.html")
     assert r.context_data["oldest"] == 2020
     assert r.context_data["youngest"] == 2024
     # we only count wines in stock, not bottles
     assert r.context_data["wines_in_stock"] == 2
-    assert r.context_data["wines"] == 3
+    assert r.context_data["wines_count"] == 3
     assert r.context_data["countries"] == 2
     assert r.context_data["total_value"] == "43€"

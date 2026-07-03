@@ -10,11 +10,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-21 09:11+0200\n"
+"POT-Creation-Date: 2026-07-03 19:06+0200\n"
 "PO-Revision-Date: 2026-02-17 16:42+0000\n"
 "Last-Translator: goa punk <goapunk@riseup.net>, 2026\n"
-"Language-Team: German (Germany) (https://app.transifex.com/the-broke-"
-"sommeliers/teams/304909/de_DE/)\n"
+"Language-Team: German (Germany) (https://app.transifex.com/the-broke-sommeliers/teams/304909/de_DE/)\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -62,6 +61,33 @@ msgstr "Scanne Barcode"
 msgid "Close Scanner"
 msgstr "Scanner schließen"
 
-#: wine_cellar/react/react_bar_code.tsx:71
+#: wine_cellar/react/react_bar_code.tsx:14
+msgid "Opening camera…"
+msgstr "Kamera wird geöffnet…"
+
+#: wine_cellar/react/react_bar_code.tsx:16
+msgid ""
+"Camera access requires HTTPS on a phone. Open this page through a secure "
+"HTTPS address."
+msgstr ""
+"Der Kamerazugriff erfordert HTTPS auf einem Smartphone. Öffnen Sie diese "
+"Seite über eine sichere HTTPS-Adresse."
+
+#: wine_cellar/react/react_bar_code.tsx:19
+msgid ""
+"No camera is available, or this browser does not support camera access."
+msgstr ""
+"Es ist keine Kamera verfügbar oder dieser Browser unterstützt den "
+"Kamerazugriff nicht."
+
+#: wine_cellar/react/react_bar_code.tsx:22
+msgid ""
+"Camera access was denied. Allow camera access in your browser settings, then"
+" try again."
+msgstr ""
+"Der Kamerazugriff wurde verweigert. Erlauben Sie ihn in den "
+"Browsereinstellungen und versuchen Sie es erneut."
+
+#: wine_cellar/react/react_bar_code.tsx:145
 msgid "All"
 msgstr "Alle"

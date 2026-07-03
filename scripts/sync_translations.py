@@ -47,6 +47,9 @@ FR = {
     "Enter the name of the appellation of the wine.": "Saisissez l’appellation du vin.",
     "Enter the barcode number of the wine as indicated on the label or scan using the button below.": "Saisissez le code-barres indiqué sur l’étiquette ou scannez-le avec le bouton ci-dessous.",
     "Drink soon": "À boire bientôt",
+    "References": "Références",
+    "Bottles in stock": "Bouteilles en stock",
+    "Regions": "Régions",
     "Create Wine": "Créer le vin",
     "Scan again": "Scanner à nouveau",
     "General Settings": "Paramètres généraux",
@@ -106,6 +109,9 @@ DE = {
     "like a tasting notebook.": "wie ein Verkostungsbuch.",
     "Follow your bottles, vintages and favourites. A cellar to explore, not administer.": "Verfolgen Sie Ihre Flaschen, Jahrgänge und Favoriten. Ein Keller zum Entdecken, nicht zum Verwalten.",
     "Drink soon": "Bald trinken",
+    "References": "Referenzen",
+    "Bottles in stock": "Flaschen auf Lager",
+    "Regions": "Regionen",
     "AI Upload": "KI-Upload",
     "Upload a photo of the bottle label and let AI fill in the details.": "Laden Sie ein Foto des Flaschenetiketts hoch und lassen Sie die KI die Details ausfüllen.",
     'To use AI-based wine creation a valid AI model and API key need to be configured. See <a href="https://the-broke-sommeliers.github.io/wine-cellar/setup/deployment/#ai-setup">the docs</a> for more information.': 'Für die KI-basierte Weinerfassung müssen ein gültiges KI-Modell und ein API-Schlüssel konfiguriert sein. Weitere Informationen finden Sie in der <a href="https://the-broke-sommeliers.github.io/wine-cellar/setup/deployment/#ai-setup">Dokumentation</a>.',
@@ -126,6 +132,20 @@ DE = {
     "General Settings": "Allgemeine Einstellungen",
 }
 
+FR_JS = {
+    "Opening camera…": "Ouverture de la caméra…",
+    "Camera access requires HTTPS on a phone. Open this page through a secure HTTPS address.": "L’accès à la caméra nécessite HTTPS sur un téléphone. Ouvrez cette page avec une adresse HTTPS sécurisée.",
+    "No camera is available, or this browser does not support camera access.": "Aucune caméra n’est disponible ou ce navigateur ne permet pas d’y accéder.",
+    "Camera access was denied. Allow camera access in your browser settings, then try again.": "L’accès à la caméra a été refusé. Autorisez-le dans les paramètres du navigateur, puis réessayez.",
+}
+
+DE_JS = {
+    "Opening camera…": "Kamera wird geöffnet…",
+    "Camera access requires HTTPS on a phone. Open this page through a secure HTTPS address.": "Der Kamerazugriff erfordert HTTPS auf einem Smartphone. Öffnen Sie diese Seite über eine sichere HTTPS-Adresse.",
+    "No camera is available, or this browser does not support camera access.": "Es ist keine Kamera verfügbar oder dieser Browser unterstützt den Kamerazugriff nicht.",
+    "Camera access was denied. Allow camera access in your browser settings, then try again.": "Der Kamerazugriff wurde verweigert. Erlauben Sie ihn in den Browsereinstellungen und versuchen Sie es erneut.",
+}
+
 DE_PLURALS = {
     "Recorded Wine": ("Erfasster Wein", "Erfasste Weine"),
     "Wine in Stock": ("Wein auf Lager", "Weine auf Lager"),
@@ -133,8 +153,8 @@ DE_PLURALS = {
 }
 
 
-def apply(locale: str, translations: dict[str, str]) -> None:
-    path = ROOT / "locale" / locale / "LC_MESSAGES" / "django.po"
+def apply(locale: str, translations: dict[str, str], domain: str = "django") -> None:
+    path = ROOT / "locale" / locale / "LC_MESSAGES" / f"{domain}.po"
     catalog = polib.pofile(path)
     for entry in catalog:
         if entry.msgid in translations:
@@ -178,4 +198,6 @@ def complete_english() -> None:
 if __name__ == "__main__":
     apply("fr_FR", FR)
     apply("de_DE", DE)
+    apply("fr_FR", FR_JS, "djangojs")
+    apply("de_DE", DE_JS, "djangojs")
     complete_english()
