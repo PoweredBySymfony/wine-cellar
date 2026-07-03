@@ -8,7 +8,8 @@ module.exports = merge(common, {
     minimize: true,
     minimizer: [
       new TerserPlugin({
-        parallel: true,
+        // Avoid multiplying Webpack's memory usage on constrained CI runners.
+        parallel: false,
         terserOptions: {
           ecma: 5,
         },
