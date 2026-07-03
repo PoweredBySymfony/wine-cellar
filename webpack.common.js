@@ -6,6 +6,11 @@ module.exports = {
   entry: {
     base: {
       import: [
+        './node_modules/@fontsource/inter/latin-400.css',
+        './node_modules/@fontsource/inter/latin-500.css',
+        './node_modules/@fontsource/inter/latin-600.css',
+        './node_modules/@fontsource/inter/latin-700.css',
+        './node_modules/@fontsource-variable/fraunces/wght.css',
         './node_modules/tom-select/dist/css/tom-select.css',
         './node_modules/@fortawesome/fontawesome-free/css/fontawesome.css',
         './node_modules/@fortawesome/fontawesome-free/css/solid.css',
@@ -20,6 +25,7 @@ module.exports = {
         './wine_cellar/assets/css/page-layout.css',
         './wine_cellar/assets/css/homepage.css',
         './wine_cellar/assets/css/button.css',
+        './wine_cellar/assets/css/theme.css',
       ],
     },
     tom_select: {

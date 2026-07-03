@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
 {% load static i18n %}
-{% block header %}
-    <h1 class="header__title">{% translate "My Wine Cellar" %}</h1>
-{% endblock header %}
 {% block content %}
-    <div class="pure-g j-center">
-        <div class="pure-u-2-3">
+    <section class="cellar-hero">
+        <p class="cellar-hero__eyebrow">{% translate "Personal collection" %}</p>
+        <h1 class="cellar-hero__title">
+            {% translate "My wine cellar," %} <em>{% translate "curated" %}</em>
+            {% translate "like a tasting notebook." %}
+        </h1>
+        <p class="cellar-hero__lede">
+            {% translate "Follow your bottles, vintages and favourites. A cellar to explore, not administer." %}
+        </p>
             <ul class="stats__card-container">
                 <li class="stats__card">
                     <a class="stats__link" href="{% url 'wine-list' %}">
@@ -61,6 +65,5 @@
                     </a>
                 </li>
             </ul>
-        </div>
-    </div>
+    </section>
 {% endblock content %}
