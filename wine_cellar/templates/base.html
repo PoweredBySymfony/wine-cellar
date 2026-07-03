@@ -25,7 +25,7 @@
         {% block menu %}
             <header class="site-header">
                 <nav class="site-nav" aria-label="{% translate "Main navigation" %}">
-                    <a href="{% url 'homepage' %}" class="site-brand" aria-label="{% translate "Wine Cellar home" %}">
+                    <a href="{% url 'wine-list' %}" class="site-brand" aria-label="{% translate "Wine Cellar home" %}">
                         <span class="site-brand__mark" aria-hidden="true">
                             <svg viewBox="0 0 32 32" role="img">
                                 <circle cx="12" cy="10" r="3"></circle><circle cx="18" cy="9" r="3"></circle>
@@ -45,7 +45,6 @@
                     <div class="site-nav__panel">
                         {% if user.is_authenticated %}
                             <ul class="site-nav__links">
-                                <li><a href="{% url 'homepage' %}"{% if request.resolver_match.url_name == 'homepage' %} aria-current="page"{% endif %}>{% translate "Overview" %}</a></li>
                                 <li><a href="{% url 'wine-list' %}"{% if request.resolver_match.url_name == 'wine-list' %} aria-current="page"{% endif %}>{% translate "My selection" %}</a></li>
                                 <li><a href="{% url 'storage-list' %}"{% if 'storage' in request.resolver_match.url_name %} aria-current="page"{% endif %}>{% translate "My cellar" %}</a></li>
                                 <li><a href="{% url 'wine-map' %}"{% if request.resolver_match.url_name == 'wine-map' %} aria-current="page"{% endif %}>{% translate "Map" %}</a></li>

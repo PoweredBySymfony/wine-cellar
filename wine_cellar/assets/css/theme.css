@@ -366,6 +366,17 @@ summary {
   text-align: left;
 }
 
+.stats__link svg {
+  width: 17px;
+  height: 17px;
+  margin-bottom: 0.35rem;
+  fill: none;
+  stroke: var(--wine-champagne);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
 .stats__link:hover,
 .stats__link:focus {
   background: rgb(255 255 255 / 12%);
@@ -435,15 +446,19 @@ summary {
 }
 
 .selection {
-  padding-block: clamp(2rem, 5vw, 4rem);
+  padding-block: clamp(1.75rem, 4vw, 3rem);
 }
 
 .selection__header {
-  display: flex;
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
   align-items: end;
-  justify-content: space-between;
-  gap: 2rem;
-  margin-bottom: 1.5rem;
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+  margin-bottom: 1rem;
+}
+
+.selection__header > div {
+  grid-column: 2;
 }
 
 .selection__header h1 {
@@ -459,7 +474,9 @@ summary {
 
 .selection__search {
   position: relative;
-  width: min(100%, 330px);
+  grid-column: 1;
+  grid-row: 1;
+  width: 100%;
 }
 
 .selection__search svg {
@@ -760,11 +777,17 @@ summary {
 
 @media (max-width: 50em) {
   .selection__header {
+    display: flex;
     align-items: stretch;
     flex-direction: column;
   }
 
+  .selection__header > div {
+    order: 1;
+  }
+
   .selection__search {
+    order: 2;
     width: 100%;
   }
 

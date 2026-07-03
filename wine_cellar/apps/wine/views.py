@@ -1,5 +1,6 @@
 import base64
 import json
+from datetime import date, timedelta
 from decimal import Decimal
 
 import litellm
@@ -15,7 +16,13 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.formats import number_format
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import DeleteView, DetailView, FormView, TemplateView
+from django.views.generic import (
+    DeleteView,
+    DetailView,
+    FormView,
+    RedirectView,
+    TemplateView,
+)
 from django_filters.views import FilterView
 from litellm import completion
 
@@ -37,71 +44,64 @@ from wine_cellar.apps.wine.models import (
 from wine_cellar.apps.wine.serializers import WineAiSerializer
 
 
-class HomePageView(TemplateView):
-    template_name = "homepage.html"
+def get_cellar_stats(user):
+    wines_query = Wine.objects.filter(user=user)
+    wines = wines_query.count()
+    wines_in_stock = (
+        wines_query.filter(storageitem__isnull=False, storageitem__deleted=False)
+        .distinct()
+        .count()
+    )
+    bottles_in_stock = StorageItem.objects.filter(
+        deleted=False, wine__user=user
+    ).count()
+    countries = wines_query.values_list("country").distinct().count()
+    regions = (
+        wines_query.exclude(region__isnull=True)
+        .values_list("region_id", flat=True)
+        .distinct()
+        .count()
+    )
+    drink_soon = wines_query.filter(
+        drink_by__gte=date.today(),
+        drink_by__lte=date.today() + timedelta(days=30),
+    ).count()
+    oldest = "-"
+    youngest = "-"
+    try:
+        oldest = wines_query.filter(vintage__isnull=False).earliest("vintage").vintage
+        youngest = wines_query.filter(vintage__isnull=False).latest("vintage").vintage
+    except Wine.DoesNotExist:
+        pass
+    total_value = StorageItem.objects.aggregate(
+        total=Sum(
+            Coalesce("price", "wine__price"),
+            filter=Q(deleted=False, wine__user=user),
+        )
+    )["total"] or Decimal("0")
+    total_value = total_value.quantize(Decimal("0"))
+    user_settings = get_user_settings(user)
+    currency = settings.CURRENCY_SYMBOLS.get(
+        getattr(user_settings, "currency", "EUR"), "€"
+    )
+    formatted_price = number_format(total_value, use_l10n=True)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        wines = Wine.objects.filter(user=self.request.user).count()
-        wines_in_stock = (
-            Wine.objects.filter(storageitem__isnull=False, storageitem__deleted=False)
-            .filter(user=self.request.user)
-            .distinct()
-            .count()
-        )
-        bottles_in_stock = StorageItem.objects.filter(
-            deleted=False, wine__user=self.request.user
-        ).count()
-        countries = (
-            Wine.objects.filter(user=self.request.user)
-            .values_list("country")
-            .distinct()
-            .count()
-        )
-        oldest = "-"
-        youngest = "-"
-        try:
-            oldest = (
-                Wine.objects.filter(user=self.request.user)
-                .filter(vintage__isnull=False)
-                .earliest("vintage")
-                .vintage
-            )
-            youngest = (
-                Wine.objects.filter(user=self.request.user)
-                .filter(vintage__isnull=False)
-                .latest("vintage")
-                .vintage
-            )
-        except Wine.DoesNotExist:
-            pass
-        total_value = StorageItem.objects.aggregate(
-            total=Sum(
-                Coalesce("price", "wine__price"),
-                filter=Q(deleted=False, wine__user=self.request.user),
-            )
-        )["total"] or Decimal("0")
-        total_value = total_value.quantize(Decimal("0"))
-        user_settings = get_user_settings(self.request.user)
-        currency = settings.CURRENCY_SYMBOLS.get(
-            getattr(user_settings, "currency", "EUR"), "€"
-        )
+    return {
+        "wines_count": wines,
+        "wines_in_stock": wines_in_stock,
+        "bottles_in_stock": bottles_in_stock,
+        "countries": countries,
+        "regions": regions,
+        "drink_soon": drink_soon,
+        "oldest": oldest,
+        "youngest": youngest,
+        "total_value": f"{formatted_price}{currency}",
+    }
 
-        formatted_price = number_format(total_value, use_l10n=True)
-        total_value = f"{formatted_price}{currency}"
 
-        context.update(
-            {
-                "wines": wines,
-                "wines_in_stock": wines_in_stock,
-                "bottles_in_stock": bottles_in_stock,
-                "countries": countries,
-                "oldest": oldest,
-                "youngest": youngest,
-                "total_value": total_value,
-            }
-        )
-        return context
+class HomePageView(RedirectView):
+    pattern_name = "wine-list"
+    permanent = False
 
 
 class WineChooseActionView(TemplateView):
@@ -277,6 +277,11 @@ class WineListView(FilterView):
             )
         )
         return qs.filter(user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(get_cellar_stats(self.request.user))
+        return context
 
 
 class WineScanView(TemplateView):

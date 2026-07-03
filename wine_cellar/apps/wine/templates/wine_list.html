@@ -5,6 +5,46 @@
     <script src="{% static 'tom_select.js' %}" type="module" defer></script>
 {% endblock extra_js %}
 {% block content %}
+    <section class="cellar-hero cellar-hero--selection">
+        <p class="cellar-hero__eyebrow">{% translate "Personal collection" %}</p>
+        <h1 class="cellar-hero__title">
+            {% translate "My wine cellar," %} <em>{% translate "curated" %}</em>
+            {% translate "like a tasting notebook." %}
+        </h1>
+        <p class="cellar-hero__lede">
+            {% translate "Follow your bottles, vintages and favourites. A cellar to explore, not administer." %}
+        </p>
+        <ul class="stats__card-container stats__card-container--selection">
+            <li class="stats__card">
+                <a class="stats__link" href="{% url 'wine-list' %}">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5zm0 0v15M8 7h8"></path></svg>
+                    <p class="stats__number">{{ wines_count }}</p>
+                    <h2 class="stats__label">{% translate "References" %}</h2>
+                </a>
+            </li>
+            <li class="stats__card">
+                <a class="stats__link" href="{% url 'wine-list' %}?stock=1">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3h4v5l2 3v8H8v-8l2-3zM8 13h8"></path></svg>
+                    <p class="stats__number">{{ bottles_in_stock }}</p>
+                    <h2 class="stats__label">{% translate "Bottles in stock" %}</h2>
+                </a>
+            </li>
+            <li class="stats__card">
+                <a class="stats__link" href="#selection-results">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
+                    <p class="stats__number">{{ regions }}</p>
+                    <h2 class="stats__label">{% translate "Regions" %}</h2>
+                </a>
+            </li>
+            <li class="stats__card">
+                <a class="stats__link" href="{% url 'wine-list' %}?order=drink_by">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+                    <p class="stats__number">{{ drink_soon }}</p>
+                    <h2 class="stats__label">{% translate "Drink soon" %}</h2>
+                </a>
+            </li>
+        </ul>
+    </section>
     <section class="selection">
         <header class="selection__header">
             <div>
@@ -28,7 +68,7 @@
             </form>
         </header>
 
-        <div class="selection__layout">
+        <div class="selection__layout" id="selection-results">
             <aside class="selection__filters">
                 <div class="selection__filter-heading">
                     <h2>{% translate "Filters" %}</h2>
