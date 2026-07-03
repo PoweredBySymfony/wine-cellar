@@ -3,7 +3,7 @@ from http import HTTPStatus
 import pytest
 from django.test import override_settings
 from django.urls import reverse
-from pytest_django.asserts import assertRedirects, assertTemplateUsed
+from pytest_django.asserts import assertContains, assertRedirects, assertTemplateUsed
 
 
 @pytest.mark.django_db
@@ -55,3 +55,43 @@ def test_user_signup_enabled(client, user):
     assert r.status_code == HTTPStatus.OK
     assertTemplateUsed(response=r, template_name="base.html")
     assertTemplateUsed(response=r, template_name="account/signup.html")
+
+
+@pytest.mark.django_db
+def test_header_language_switches_to_french(client, user):
+    client.force_login(user)
+
+    response = client.post(
+        reverse("set_language"),
+        {"language": "fr-FR", "next": reverse("homepage")},
+        follow=True,
+    )
+
+    assert response.status_code == HTTPStatus.OK
+    assertContains(response, "Collection personnelle")
+    assertContains(response, "Ma cave à vin,")
+    assertContains(response, "Langue actuelle")
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize(
+    ("language", "expected"),
+    [
+        ("fr-FR", ("Liste des vins", "Filtre et tri", "Type de vin", "Allemagne")),
+        ("de-DE", ("Weinliste", "Filtern & Sortierung", "Weinart", "Frankreich")),
+        ("en-gb", ("Wine List", "Filter & Sorting", "Wine Type")),
+    ],
+)
+def test_wine_list_is_translated_for_every_supported_language(
+    client, user, language, expected
+):
+    client.force_login(user)
+    client.post(
+        reverse("set_language"),
+        {"language": language, "next": reverse("wine-list")},
+    )
+
+    response = client.get(reverse("wine-list"))
+
+    for text in expected:
+        assertContains(response, text)

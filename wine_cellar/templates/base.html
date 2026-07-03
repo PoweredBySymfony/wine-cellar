@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load static settings i18n %}
-<html lang="en">
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,9 +59,28 @@
                                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
                                     <span>{% translate "Add wine" %}</span>
                                 </a>
-                                <a href="{% url 'user-settings' %}" class="site-nav__icon" aria-label="{% translate "Change language" %}">
-                                    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"></path></svg>
-                                </a>
+                                {% get_available_languages as LANGUAGES %}
+                                <details class="language-menu">
+                                    <summary class="site-nav__icon" aria-label="{% translate "Change language" %}">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"></path></svg>
+                                    </summary>
+                                    <div class="language-menu__panel">
+                                        {% for language_code, language_name in LANGUAGES %}
+                                            <form action="{% url 'set_language' %}" method="post">
+                                                {% csrf_token %}
+                                                <input name="next" type="hidden" value="{{ request.get_full_path }}">
+                                                <input name="language" type="hidden" value="{{ language_code }}">
+                                                <button type="submit"{% if language_code|lower == LANGUAGE_CODE|lower %} aria-current="true"{% endif %}>
+                                                    <span>{{ language_name }}</span>
+                                                    {% if language_code|lower == LANGUAGE_CODE|lower %}
+                                                        <svg class="language-menu__check" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"></path></svg>
+                                                        <span class="visually-hidden">{% translate "Current language" %}</span>
+                                                    {% endif %}
+                                                </button>
+                                            </form>
+                                        {% endfor %}
+                                    </div>
+                                </details>
                                 <a href="{% url 'user-settings' %}" class="site-nav__icon" aria-label="{% translate "Account settings" %}">
                                     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3"></circle><path d="M6.5 20a5.5 5.5 0 0 1 11 0"></path></svg>
                                 </a>
@@ -89,7 +109,7 @@
         <footer class="footer">
             <p>
                 AGPL 3.0 | {% translate "Version" %} {% get_setting "VERSION" %} | <a href="https://github.com/the-broke-sommeliers/wine-cellar"
-    target="_blank">Github <span class="visually-hidden">(opens in new tab)</span></a>
+    target="_blank">Github <span class="visually-hidden">{% translate "(opens in new tab)" %}</span></a>
             </p>
         </footer>
     </body>

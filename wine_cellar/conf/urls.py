@@ -54,6 +54,7 @@ from wine_cellar.apps.wine.views import (
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("i18n/", include("django.conf.urls.i18n")),
     path("accounts/", include("allauth.urls")),
     path("user/settings/", UserSettingsView.as_view(), name="user-settings"),
     path("storages/", StorageListView.as_view(), name="storage-list"),

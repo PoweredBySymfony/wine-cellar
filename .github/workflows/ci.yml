@@ -42,6 +42,8 @@ jobs:
 
       - name: Install dependencies
         run: |
+          sudo apt-get update
+          sudo apt-get install --yes gettext
           uv sync --locked
           npm ci
 
@@ -53,11 +55,18 @@ jobs:
           uv run python manage.py check
           uv run python manage.py makemigrations --dry-run --check --noinput
 
+      - name: Translation completeness
+        run: |
+          uv run python manage.py makemessages --all --no-obsolete -d django --extension html,email,py --ignore '.venv/*' --ignore 'node_modules/*' --ignore 'build/*' --ignore 'wine_cellar/static/**'
+          uv run python manage.py makemessages --all --no-obsolete -d djangojs --extension js,jsx,ts,tsx --ignore '.venv/*' --ignore 'node_modules/*' --ignore 'build/*' --ignore 'wine_cellar/static/**'
+          uv run python scripts/check_translations.py
+          uv run python manage.py compilemessages -l de_DE -l fr_FR -l en_GB
+
       - name: Python quality
         run: |
-          uv run isort --diff --check-only wine_cellar tests
-          uv run black --check --exclude '/migrations/' wine_cellar tests
-          uv run flake8 wine_cellar tests --exclude migrations,settings
+          uv run isort --diff --check-only wine_cellar tests scripts
+          uv run black --check --exclude '/migrations/' wine_cellar tests scripts
+          uv run flake8 wine_cellar tests scripts --exclude migrations,settings
 
       - name: Frontend quality
         run: npm run lint

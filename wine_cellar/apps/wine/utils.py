@@ -1,13 +1,41 @@
 from __future__ import annotations
 
+import gettext
 import os
 from typing import TYPE_CHECKING
 
+import pycountry
 from django.conf import settings
+from django.utils.translation import get_language
 from PIL import ExifTags, Image
 
 if TYPE_CHECKING:
     from wine_cellar.apps.wine.models import Wine
+
+
+def localized_country_name(country_code):
+    """Return an ISO 3166 country name in Django's active language."""
+    country = pycountry.countries.get(alpha_2=country_code)
+    if country is None:
+        return country_code
+    language = (get_language() or "en").split("-")[0]
+    translation = gettext.translation(
+        "iso3166-1",
+        pycountry.LOCALES_DIR,
+        languages=[language],
+        fallback=True,
+    )
+    return translation.gettext(country.name)
+
+
+def localized_country_choices():
+    return sorted(
+        (
+            (country.alpha_2, localized_country_name(country.alpha_2))
+            for country in pycountry.countries
+        ),
+        key=lambda choice: choice[1],
+    )
 
 
 def user_directory_path(instance, filename):

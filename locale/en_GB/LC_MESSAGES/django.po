@@ -7,17 +7,25 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-29 14:01+0200\n"
+"POT-Creation-Date: 2026-07-03 11:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: wine_cellar/apps/storage/forms.py:17
+#: wine_cellar/apps/storage/forms.py:12 wine_cellar/apps/storage/models.py:8
+msgid "Storage Name"
+msgstr "Storage Name"
+
+#: wine_cellar/apps/storage/forms.py:13 wine_cellar/apps/storage/forms.py:57
+msgid "Enter the name of the storage."
+msgstr "Enter the name of the storage."
+
+#: wine_cellar/apps/storage/forms.py:17 wine_cellar/apps/storage/models.py:10
 msgid "Storage Description"
 msgstr "Storage Description"
 
@@ -25,7 +33,7 @@ msgstr "Storage Description"
 msgid "Enter a description of the storage."
 msgstr "Enter a description of the storage."
 
-#: wine_cellar/apps/storage/forms.py:22
+#: wine_cellar/apps/storage/forms.py:22 wine_cellar/apps/storage/models.py:12
 #: wine_cellar/apps/storage/templates/storage_detail.html:33
 #: wine_cellar/apps/storage/templates/storage_item_history.html:19
 #: wine_cellar/apps/storage/templates/storage_list.html:22
@@ -37,13 +45,21 @@ msgstr "Location"
 msgid "Enter the location of the storage."
 msgstr "Enter the location of the storage."
 
-#: wine_cellar/apps/storage/forms.py:28
+#: wine_cellar/apps/storage/forms.py:28 wine_cellar/apps/storage/models.py:13
 msgid "Number of Rows"
 msgstr "Number of Rows"
 
-#: wine_cellar/apps/storage/forms.py:34
+#: wine_cellar/apps/storage/forms.py:29 wine_cellar/apps/storage/forms.py:62
+msgid "Enter the number of rows in the storage."
+msgstr "Enter the number of rows in the storage."
+
+#: wine_cellar/apps/storage/forms.py:34 wine_cellar/apps/storage/models.py:14
 msgid "Number of Columns"
 msgstr "Number of Columns"
+
+#: wine_cellar/apps/storage/forms.py:35 wine_cellar/apps/storage/forms.py:68
+msgid "Enter the number of columns in the storage."
+msgstr "Enter the number of columns in the storage."
 
 #: wine_cellar/apps/storage/forms.py:52 wine_cellar/apps/wine/forms.py:191
 #, python-format
@@ -96,6 +112,19 @@ msgstr "Drink Reminder"
 msgid "Send a reminder to drink the rest of this bottle by this many days."
 msgstr "Send a reminder to drink the rest of this bottle by this many days."
 
+#: wine_cellar/apps/storage/signals.py:13
+msgid "Default Shelf"
+msgstr "Default Shelf"
+
+#: wine_cellar/apps/storage/signals.py:15
+msgid "Default storage for wines"
+msgstr "Default storage for wines"
+
+#: wine_cellar/apps/storage/signals.py:16
+#| msgid "Cell"
+msgid "Cellar"
+msgstr "Cellar"
+
 #: wine_cellar/apps/storage/templates/stock_add.html:9
 #: wine_cellar/apps/storage/templates/stock_add.html:12
 msgid "Add Bottle"
@@ -113,6 +142,23 @@ msgstr "This row of the shelf is full. Please choose another one."
 msgid "Save"
 msgstr "Save"
 
+#: wine_cellar/apps/storage/templates/stock_consume.html:4
+#: wine_cellar/apps/storage/templates/stock_consume.html:7
+#: wine_cellar/apps/storage/templates/stock_consume.html:31
+#: wine_cellar/apps/storage/templates/storage_detail.html:98
+#: wine_cellar/apps/wine/templates/wine_detail.html:231
+msgid "Finish Bottle"
+msgstr "Finish Bottle"
+
+#: wine_cellar/apps/storage/templates/stock_consume.html:17
+#, python-format
+msgid ""
+"Are you sure you have finished the bottle \"%(name)s\" from \"%(storage)s\"?"
+" It will be marked as consumed in your history."
+msgstr ""
+"Are you sure you have finished the bottle \"%(name)s\" from \"%(storage)s\"?"
+" It will be marked as consumed in your history."
+
 #: wine_cellar/apps/storage/templates/stock_consume.html:24
 #: wine_cellar/apps/storage/templates/stock_consume.html:27
 #: wine_cellar/apps/storage/templates/stock_open.html:33
@@ -124,6 +170,12 @@ msgstr "Save"
 #: wine_cellar/apps/wine/templates/wine_confirm_delete.html:23
 msgid "Cancel"
 msgstr "Cancel"
+
+#: wine_cellar/apps/storage/templates/stock_open.html:4
+#: wine_cellar/apps/storage/templates/stock_open.html:7
+#: wine_cellar/apps/storage/templates/stock_open.html:40
+msgid "Open Bottle"
+msgstr "Open Bottle"
 
 #: wine_cellar/apps/storage/templates/stock_undo_open.html:4
 #: wine_cellar/apps/storage/templates/stock_undo_open.html:7
@@ -187,6 +239,19 @@ msgstr "Capacity"
 msgid "Grid"
 msgstr "Grid"
 
+#: wine_cellar/apps/storage/templates/storage_detail.html:38
+msgid "Description"
+msgstr "Description"
+
+#: wine_cellar/apps/storage/templates/storage_detail.html:48
+msgid "Contents"
+msgstr "Contents"
+
+#: wine_cellar/apps/storage/templates/storage_detail.html:57
+#: wine_cellar/apps/storage/templates/storage_item_history.html:18
+msgid "Wine"
+msgstr "Wine"
+
 #: wine_cellar/apps/storage/templates/storage_detail.html:58
 #: wine_cellar/apps/storage/templates/storage_item_history.html:20
 #: wine_cellar/apps/wine/templates/wine_detail.html:209
@@ -199,6 +264,11 @@ msgstr "Row"
 msgid "Cell"
 msgstr "Cell"
 
+#: wine_cellar/apps/storage/templates/storage_detail.html:60
+#: wine_cellar/apps/wine/templates/wine_detail.html:211
+msgid "Drink by"
+msgstr "Drink by"
+
 #: wine_cellar/apps/storage/templates/storage_detail.html:86
 #: wine_cellar/apps/storage/templates/storage_detail.html:107
 #: wine_cellar/apps/storage/templates/storage_item_history.html:43
@@ -207,10 +277,23 @@ msgstr "Cell"
 msgid "Opened"
 msgstr "Opened"
 
+#: wine_cellar/apps/storage/templates/storage_detail.html:92
+#: wine_cellar/apps/storage/templates/storage_list.html:41
+#: wine_cellar/apps/wine/templates/includes/edit_delete_buttons.html:3
+#: wine_cellar/apps/wine/templates/includes/edit_delete_buttons.html:4
+#: wine_cellar/apps/wine/templates/wine_detail.html:225
+msgid "Edit"
+msgstr "Edit"
+
 #: wine_cellar/apps/storage/templates/storage_detail.html:94
 #: wine_cellar/apps/wine/templates/wine_detail.html:227
 msgid "Open"
 msgstr "Open"
+
+#: wine_cellar/apps/storage/templates/storage_detail.html:99
+#: wine_cellar/apps/wine/templates/wine_detail.html:232
+msgid "Remove"
+msgstr "Remove"
 
 #: wine_cellar/apps/storage/templates/storage_detail.html:111
 #: wine_cellar/apps/storage/templates/storage_item_history.html:53
@@ -221,6 +304,11 @@ msgstr "No wines here yet."
 #: wine_cellar/apps/storage/templates/storage_edit.html:11
 msgid "Edit Storage"
 msgstr "Edit Storage"
+
+#: wine_cellar/apps/storage/templates/storage_item_confirm_delete.html:4
+#: wine_cellar/apps/storage/templates/storage_item_confirm_delete.html:7
+msgid "Delete Bottle"
+msgstr "Delete Bottle"
 
 #: wine_cellar/apps/storage/templates/storage_item_confirm_delete.html:17
 #, python-format
@@ -234,6 +322,14 @@ msgstr ""
 #: wine_cellar/apps/storage/templates/storage_item_history.html:4
 msgid "Stock History"
 msgstr "Stock History"
+
+#: wine_cellar/apps/storage/templates/storage_item_history.html:11
+msgid "Bottle History"
+msgstr "Bottle History"
+
+#: wine_cellar/apps/storage/templates/storage_item_history.html:12
+msgid "Back to Storages"
+msgstr "Back to Storages"
 
 #: wine_cellar/apps/storage/templates/storage_item_history.html:23
 msgid "Status"
@@ -255,6 +351,14 @@ msgstr "Removed"
 msgid "Storages"
 msgstr "Storages"
 
+#: wine_cellar/apps/storage/templates/storage_list.html:11
+msgid "Your Storages"
+msgstr "Your Storages"
+
+#: wine_cellar/apps/storage/templates/storage_list.html:14
+msgid "History"
+msgstr "History"
+
 #: wine_cellar/apps/storage/templates/storage_list.html:21
 msgid "Name"
 msgstr "Name"
@@ -262,6 +366,10 @@ msgstr "Name"
 #: wine_cellar/apps/storage/templates/storage_list.html:23
 msgid "Slots"
 msgstr "Slots"
+
+#: wine_cellar/apps/storage/templates/storage_list.html:49
+msgid "No storages yet."
+msgstr "No storages yet."
 
 #: wine_cellar/apps/storage/views.py:155
 msgid "You must have at least one storage. Cannot delete the last storage."
@@ -275,6 +383,10 @@ msgstr "Language"
 msgid "Currency"
 msgstr "Currency"
 
+#: wine_cellar/apps/user/forms.py:15
+msgid "Email Notifications"
+msgstr "Email Notifications"
+
 #: wine_cellar/apps/user/forms.py:18
 msgid "The language the site is displayed in."
 msgstr "The language the site is displayed in."
@@ -287,9 +399,18 @@ msgstr "The default currency used for the price of a wine."
 msgid "Receive email notifications."
 msgstr "Receive email notifications."
 
+#: wine_cellar/apps/user/templates/settings.html:8
+#: wine_cellar/templates/base.html:51
+msgid "Settings"
+msgstr "Settings"
+
 #: wine_cellar/apps/user/templates/settings.html:18
 msgid "General"
 msgstr "General"
+
+#: wine_cellar/apps/wine/emails.py:13
+msgid "Reminder to finish your opened wine(s)"
+msgstr "Reminder to finish your opened wine(s)"
 
 #: wine_cellar/apps/wine/emails.py:25
 msgid "Reminder to drink your wine(s)"
@@ -299,6 +420,10 @@ msgstr "Reminder to drink your wine(s)"
 #, python-format
 msgid "'%(pk)s' is not a valid value."
 msgstr "'%(pk)s' is not a valid value."
+
+#: wine_cellar/apps/wine/filters.py:34
+msgid "Name contains"
+msgstr "Name contains"
 
 #: wine_cellar/apps/wine/filters.py:38
 msgid "Show only in stock"
@@ -328,6 +453,10 @@ msgstr "Name Descending"
 msgid "Name Ascending"
 msgstr "Name Ascending"
 
+#: wine_cellar/apps/wine/filters.py:49
+msgid "Youngest First"
+msgstr "Youngest First"
+
 #: wine_cellar/apps/wine/filters.py:50
 msgid "Oldest First"
 msgstr "Oldest First"
@@ -353,6 +482,10 @@ msgstr "Sorting"
 #: wine_cellar/apps/wine/filters.py:85
 msgid "Name Contains"
 msgstr "Name Contains"
+
+#: wine_cellar/apps/wine/filters.py:86
+msgid "Wine Type"
+msgstr "Wine Type"
 
 #: wine_cellar/apps/wine/filters.py:87
 #: wine_cellar/apps/wine/templates/wine_detail.html:144
@@ -386,6 +519,10 @@ msgstr "Grapes"
 msgid "Food Pairings"
 msgstr "Food Pairings"
 
+#: wine_cellar/apps/wine/filters.py:93
+msgid "Source"
+msgstr "Source"
+
 #: wine_cellar/apps/wine/filters.py:94
 msgid "Country"
 msgstr "Country"
@@ -398,13 +535,26 @@ msgstr "Enter the name of the wine as indicated on the label."
 msgid "Select the type of wine from the dropdown."
 msgstr "Select the type of wine from the dropdown."
 
+#: wine_cellar/apps/wine/forms.py:245
+msgid "Sweetness"
+msgstr "Sweetness"
+
 #: wine_cellar/apps/wine/forms.py:249
 msgid "Select the sweetness level of the wine."
 msgstr "Select the sweetness level of the wine."
 
 #: wine_cellar/apps/wine/forms.py:257
 msgid "Select the country the wine was produced in as indicated on the label."
-msgstr "Select the country the wine was produced in as indicated on the label."
+msgstr ""
+"Select the country the wine was produced in as indicated on the label."
+
+#: wine_cellar/apps/wine/forms.py:264
+msgid "Enter the name of the region the wine is from."
+msgstr "Enter the name of the region the wine is from."
+
+#: wine_cellar/apps/wine/forms.py:270
+msgid "Enter the name of the appellation of the wine."
+msgstr "Enter the name of the appellation of the wine."
 
 #: wine_cellar/apps/wine/forms.py:276
 msgid ""
@@ -475,6 +625,14 @@ msgstr "Enter the names of the vineyards which produced the wine."
 msgid "Where did you get the wine from?"
 msgstr "Where did you get the wine from?"
 
+#: wine_cellar/apps/wine/forms.py:386
+msgid ""
+"Enter the barcode number of the wine as indicated on the label or scan using"
+" the button below."
+msgstr ""
+"Enter the barcode number of the wine as indicated on the label or scan using"
+" the button below."
+
 #: wine_cellar/apps/wine/forms.py:395
 msgid ""
 "Share your thoughts, tasting experiences, or any anecdotes related to this "
@@ -502,6 +660,14 @@ msgstr "Upload a photo of the front of the bottle label."
 #: wine_cellar/apps/wine/forms.py:422
 msgid "Upload a photo of the back of the bottle label."
 msgstr "Upload a photo of the back of the bottle label."
+
+#: wine_cellar/apps/wine/forms.py:457
+msgid "Upload an image of the front label."
+msgstr "Upload an image of the front label."
+
+#: wine_cellar/apps/wine/forms.py:462
+msgid "Upload an image of the back label."
+msgstr "Upload an image of the back label."
 
 #: wine_cellar/apps/wine/forms.py:471
 msgid "At least one image (front or back) must be uploaded."
@@ -600,26 +766,64 @@ msgstr "This field is optional"
 msgid "(Optional)"
 msgstr "(Optional)"
 
-#: wine_cellar/apps/wine/templates/homepage.html:4
-msgid "My Wine Cellar"
-msgstr "My Wine Cellar"
+#: wine_cellar/apps/wine/templates/homepage.html:5
+msgid "Personal collection"
+msgstr "Personal collection"
 
-#: wine_cellar/apps/wine/templates/homepage.html:38
+#: wine_cellar/apps/wine/templates/homepage.html:7
+msgid "My wine cellar,"
+msgstr "My wine cellar,"
+
+#: wine_cellar/apps/wine/templates/homepage.html:7
+msgid "curated"
+msgstr "curated"
+
+#: wine_cellar/apps/wine/templates/homepage.html:8
+msgid "like a tasting notebook."
+msgstr "like a tasting notebook."
+
+#: wine_cellar/apps/wine/templates/homepage.html:11
+msgid ""
+"Follow your bottles, vintages and favourites. A cellar to explore, not "
+"administer."
+msgstr ""
+"Follow your bottles, vintages and favourites. A cellar to explore, not "
+"administer."
+
+#: wine_cellar/apps/wine/templates/homepage.html:18
+msgid "Recorded Wine"
+msgid_plural "Recorded Wines"
+msgstr[0] "Recorded Wine"
+msgstr[1] "Recorded Wines"
+
+#: wine_cellar/apps/wine/templates/homepage.html:26
+msgid "Wine in Stock"
+msgid_plural "Wines in Stock"
+msgstr[0] "Wine in Stock"
+msgstr[1] "Wines in Stock"
+
+#: wine_cellar/apps/wine/templates/homepage.html:34
+msgid "Bottle in Stock"
+msgid_plural "Bottles in Stock"
+msgstr[0] "Bottle in Stock"
+msgstr[1] "Bottles in Stock"
+
+#: wine_cellar/apps/wine/templates/homepage.html:42
 msgctxt "stats"
 msgid "Country"
 msgid_plural "Countries"
 msgstr[0] "Country"
 msgstr[1] "Countries"
 
-#: wine_cellar/apps/wine/templates/homepage.html:46
+#: wine_cellar/apps/wine/templates/homepage.html:50
 msgid "Total Value in Stock"
 msgstr "Total Value in Stock"
 
-#: wine_cellar/apps/wine/templates/homepage.html:53
+#: wine_cellar/apps/wine/templates/homepage.html:57
 msgid "Oldest Wine"
 msgstr "Oldest Wine"
 
-#: wine_cellar/apps/wine/templates/homepage.html:60
+#: wine_cellar/apps/wine/templates/homepage.html:64
 msgid "Youngest Wine"
 msgstr "Youngest Wine"
 
@@ -631,6 +835,11 @@ msgstr "(current)"
 #, python-format
 msgid "Image of a glass of %(type)s wine"
 msgstr "Image of a glass of %(type)s wine"
+
+#: wine_cellar/apps/wine/templates/wine_card.html:26
+#: wine_cellar/apps/wine/templates/wine_detail.html:137
+msgid "Drink soon"
+msgstr "Drink soon"
 
 #: wine_cellar/apps/wine/templates/wine_card.html:31
 #, python-format
@@ -653,6 +862,29 @@ msgstr "Add Manually"
 msgid "Fill in all details yourself using the step-by-step form."
 msgstr "Fill in all details yourself using the step-by-step form."
 
+#: wine_cellar/apps/wine/templates/wine_choose_action.html:17
+msgid "AI Upload"
+msgstr "AI Upload"
+
+#: wine_cellar/apps/wine/templates/wine_choose_action.html:18
+msgid "Upload a photo of the bottle label and let AI fill in the details."
+msgstr "Upload a photo of the bottle label and let AI fill in the details."
+
+#: wine_cellar/apps/wine/templates/wine_choose_action.html:23
+msgid ""
+"To use AI-based wine creation a valid AI model and API key need to be "
+"configured. See <a href=\"https://the-broke-sommeliers.github.io/wine-"
+"cellar/setup/deployment/#ai-setup\">the docs</a> for more information."
+msgstr ""
+"To use AI-based wine creation a valid AI model and API key need to be "
+"configured. See <a href=\"https://the-broke-sommeliers.github.io/wine-"
+"cellar/setup/deployment/#ai-setup\">the docs</a> for more information."
+
+#: wine_cellar/apps/wine/templates/wine_confirm_delete.html:4
+#: wine_cellar/apps/wine/templates/wine_confirm_delete.html:7
+msgid "Delete Wine"
+msgstr "Delete Wine"
+
 #: wine_cellar/apps/wine/templates/wine_confirm_delete.html:17
 #, python-format
 msgid ""
@@ -662,8 +894,11 @@ msgstr ""
 "Do you really want to permanently delete the wine \"%(name)s\"? This action "
 "cannot be undone."
 
+#: wine_cellar/apps/wine/templates/wine_create.html:15
+msgid "Create Wine"
+msgstr "Create Wine"
+
 #: wine_cellar/apps/wine/templates/wine_create.html:18
-#: wine_cellar/templates/base.html:43 wine_cellar/templates/base.html:81
 msgid "Add Wine"
 msgstr "Add Wine"
 
@@ -752,6 +987,10 @@ msgstr "Average Price"
 msgid "Comment"
 msgstr "Comment"
 
+#: wine_cellar/apps/wine/templates/wine_detail.html:191
+msgid "Stock"
+msgstr "Stock"
+
 #: wine_cellar/apps/wine/templates/wine_detail.html:194
 #, python-format
 msgid ""
@@ -774,6 +1013,10 @@ msgstr[1] ""
 #: wine_cellar/apps/wine/templates/wine_detail.html:201
 msgid "Add"
 msgstr "Add"
+
+#: wine_cellar/apps/wine/templates/wine_detail.html:242
+msgid "No bottles in stock."
+msgstr "No bottles in stock."
 
 #: wine_cellar/apps/wine/templates/wine_edit.html:15
 #: wine_cellar/apps/wine/templates/wine_edit.html:18
@@ -841,6 +1084,10 @@ msgstr "No wine with barcode <strong>%(code)s</strong> found."
 msgid "Would you like to add a new wine with that barcode?"
 msgstr "Would you like to add a new wine with that barcode?"
 
+#: wine_cellar/apps/wine/templates/wine_scanned.html:16
+msgid "Scan again"
+msgstr "Scan again"
+
 #: wine_cellar/apps/wine/templates/wine_scanned.html:18
 msgid "Add new wine"
 msgstr "Add new wine"
@@ -852,12 +1099,12 @@ msgstr "Create Wine from Image"
 #: wine_cellar/apps/wine/templates/wine_upload_ai.html:23
 msgid ""
 "To use ai-based wine creation a valid ai model and api key need to be "
-"configured. See <a href=\"https://the-broke-sommeliers.github.io/wine-cellar/"
-"setup/deployment/#ai-setup\">the docs</a> for more information."
+"configured. See <a href=\"https://the-broke-sommeliers.github.io/wine-"
+"cellar/setup/deployment/#ai-setup\">the docs</a> for more information."
 msgstr ""
 "To use ai-based wine creation a valid ai model and api key need to be "
-"configured. See <a href=\"https://the-broke-sommeliers.github.io/wine-cellar/"
-"setup/deployment/#ai-setup\">the docs</a> for more information."
+"configured. See <a href=\"https://the-broke-sommeliers.github.io/wine-"
+"cellar/setup/deployment/#ai-setup\">the docs</a> for more information."
 
 #: wine_cellar/apps/wine/templates/wine_upload_ai.html:45
 msgid "Upload"
@@ -931,33 +1178,73 @@ msgstr "Dollar"
 msgid "Pound Sterling"
 msgstr "Pound Sterling"
 
-#: wine_cellar/templates/base.html:40 wine_cellar/templates/base.html:78
+#: wine_cellar/templates/base.html:26
+msgid "Main navigation"
+msgstr "Main navigation"
+
+#: wine_cellar/templates/base.html:27
+msgid "Wine Cellar home"
+msgstr "Wine Cellar home"
+
+#: wine_cellar/templates/base.html:41
+msgid "Toggle navigation"
+msgstr "Toggle navigation"
+
+#: wine_cellar/templates/base.html:47
+msgid "My cellar"
+msgstr "My cellar"
+
+#: wine_cellar/templates/base.html:48
 msgid "Wines"
 msgstr "Wines"
 
-#: wine_cellar/templates/base.html:46 wine_cellar/templates/base.html:84
-msgid "Scan Wine"
-msgstr "Scan Wine"
-
-#: wine_cellar/templates/base.html:49 wine_cellar/templates/base.html:87
-msgid "Map"
-msgstr "Map"
-
-#: wine_cellar/templates/base.html:52 wine_cellar/templates/base.html:90
+#: wine_cellar/templates/base.html:49
 msgid "Storage"
 msgstr "Storage"
 
-#: wine_cellar/templates/base.html:60 wine_cellar/templates/base.html:98
+#: wine_cellar/templates/base.html:50
+msgid "Map"
+msgstr "Map"
+
+#: wine_cellar/templates/base.html:56
+msgid "Scan"
+msgstr "Scan"
+
+#: wine_cellar/templates/base.html:60
+msgid "Add wine"
+msgstr "Add wine"
+
+#: wine_cellar/templates/base.html:64
+msgid "Change language"
+msgstr "Change language"
+
+#: wine_cellar/templates/base.html:77
+msgid "Current language"
+msgstr "Current language"
+
+#: wine_cellar/templates/base.html:84
+msgid "Account settings"
+msgstr "Account settings"
+
+#: wine_cellar/templates/base.html:89
 msgid "Logout"
 msgstr "Logout"
 
-#: wine_cellar/templates/base.html:65 wine_cellar/templates/base.html:103
+#: wine_cellar/templates/base.html:95
 msgid "Login"
 msgstr "Login"
 
-#: wine_cellar/templates/base.html:122
+#: wine_cellar/templates/base.html:111
 msgid "Version"
 msgstr "Version"
+
+#: wine_cellar/templates/base.html:112
+msgid "(opens in new tab)"
+msgstr "(opens in new tab)"
+
+#: wine_cellar/templates/includes/settings_sidebar.html:6
+msgid "General Settings"
+msgstr "General Settings"
 
 #: wine_cellar/templates/includes/settings_sidebar.html:9
 msgid "Email Addresses"

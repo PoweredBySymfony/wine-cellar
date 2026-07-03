@@ -26,6 +26,7 @@ from wine_cellar.apps.wine.models import (
     WineImage,
     WineType,
 )
+from wine_cellar.apps.wine.utils import localized_country_choices
 from wine_cellar.apps.wine.widgets import (
     MapChoosePointWidget,
     NoFilenameClearableFileInput,
@@ -155,6 +156,7 @@ class WineForm(TomSelectMixin, WineFormPostCleanMixin, forms.Form):
         super().__init__(*args, **kwargs)
 
         self.initial["form_step"] = 0
+        self.fields["country"].widget.choices = localized_country_choices()
         if user:
             self._limit_user_querysets(user)
             self._set_currency_help(user)

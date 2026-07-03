@@ -12,7 +12,7 @@ from django.utils.formats import number_format
 from django.utils.translation import gettext_lazy as _
 
 from wine_cellar.apps.user.views import get_user_settings
-from wine_cellar.apps.wine.utils import user_directory_path
+from wine_cellar.apps.wine.utils import localized_country_name, user_directory_path
 
 
 class UserContentModel(models.Model):
@@ -319,7 +319,7 @@ class Wine(UserContentModel):
 
     @property
     def country_name(self):
-        return pycountry.countries.get(alpha_2=self.country).name
+        return localized_country_name(self.country)
 
     @property
     def country_icon(self):

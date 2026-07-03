@@ -113,4 +113,17 @@ po:
 
 .PHONY: mo
 mo:
-	$(VIRTUAL_ENV)/bin/python manage.py compilemessages
+	$(VIRTUAL_ENV)/bin/python manage.py compilemessages -l de_DE -l fr_FR -l en_GB
+
+.PHONY: translations
+translations: po
+	$(VIRTUAL_ENV)/bin/python scripts/sync_translations.py
+	$(VIRTUAL_ENV)/bin/python scripts/check_translations.py
+	$(VIRTUAL_ENV)/bin/python manage.py compilemessages -l de_DE -l fr_FR -l en_GB
+
+.PHONY: translations-check
+translations-check:
+	$(VIRTUAL_ENV)/bin/python manage.py makemessages --all --no-obsolete -d django --extension html,email,py --ignore '.venv/*' --ignore 'node_modules/*' --ignore 'build/*' --ignore "wine_cellar/static/**"
+	$(VIRTUAL_ENV)/bin/python manage.py makemessages --all --no-obsolete -d djangojs --extension js,jsx,ts,tsx --ignore '.venv/*' --ignore 'node_modules/*' --ignore 'build/*' --ignore "wine_cellar/static/**"
+	$(VIRTUAL_ENV)/bin/python scripts/check_translations.py
+	$(VIRTUAL_ENV)/bin/python manage.py compilemessages -l de_DE -l fr_FR -l en_GB

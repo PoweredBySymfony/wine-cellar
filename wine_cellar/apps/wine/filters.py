@@ -6,6 +6,7 @@ from django_filters import ChoiceFilter, OrderingFilter
 
 from wine_cellar.apps.wine.forms import WineFilterForm
 from wine_cellar.apps.wine.models import Wine
+from wine_cellar.apps.wine.utils import localized_country_choices
 
 
 class NullsLastOrderingFilter(OrderingFilter):
@@ -96,6 +97,7 @@ class WineFilter(django_filters.FilterSet):
 
     def __init__(self, data=None, queryset=None, *, request=None, prefix=None):
         super().__init__(data, queryset, request=request, prefix=prefix)
+        self.filters["country"].extra["choices"] = localized_country_choices()
         user_filters = [
             "vineyard",
             "grapes",
