@@ -84,6 +84,7 @@ exclude = '''
 [tool.coverage.run]
 source = ["wine_cellar"]
 branch = true
+relative_files = true
 omit = ["wine_cellar/conf/*", "**/tests/*", "**/migrations/*"]
 
 [tool.coverage.report]
