@@ -358,6 +358,46 @@ p.form-hint {
   text-align: center;
 }
 
+.scanner-error p {
+  margin: 0;
+}
+
+.scanner-error__actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.65rem;
+  margin-top: 0.75rem;
+}
+
+.scanner-error__actions button,
+.scanner-error__actions a {
+  padding: 0.55rem 0.8rem;
+  color: #64283c;
+  background: #fff;
+  border: 1px solid #dc8ca0;
+  border-radius: 999px;
+  font: inherit;
+  text-decoration: none;
+}
+
+.scanner-label-status {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  left: 1rem;
+  padding: 0.65rem 0.85rem;
+  color: #fffff0;
+  background: rgb(20 20 20 / 78%);
+  border-radius: 999px;
+  font-size: 0.84rem;
+  text-align: center;
+}
+
+.scanner-photo-button {
+  display: block;
+  margin: 0 auto 0.75rem;
+}
+
 .scan-page__helptext {
   color: var(--text-color-gray);
   margin: 0 0 1.25rem 0;

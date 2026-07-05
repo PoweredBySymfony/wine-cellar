@@ -2,6 +2,7 @@ import base64
 import json
 from datetime import date, timedelta
 from decimal import Decimal
+from urllib.parse import urlencode
 
 import litellm
 import litellm.exceptions
@@ -286,6 +287,24 @@ class WineListView(FilterView):
 
 class WineScanView(TemplateView):
     template_name = "wine_scan.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        code = request.GET.get("code")
+        if code:
+            wine = Wine.objects.filter(barcode=code, user=request.user).first()
+            if wine:
+                return redirect(reverse("wine-detail", kwargs={"pk": wine.pk}))
+            return redirect(
+                f"{reverse('wine-add-choose')}?{urlencode({'barcode': code})}"
+            )
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["ai_enabled"] = all(
+            [getattr(settings, "AI_MODEL", None), getattr(settings, "AI_API_KEY", None)]
+        )
+        return context
 
 
 class WineScannedView(TemplateView):

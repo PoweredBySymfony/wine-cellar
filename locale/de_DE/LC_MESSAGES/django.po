@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-03 19:06+0200\n"
+"POT-Creation-Date: 2026-07-05 17:43+0200\n"
 "PO-Revision-Date: 2026-02-17 16:42+0000\n"
 "Last-Translator: goa punk <goapunk@riseup.net>, 2026\n"
 "Language-Team: German (Germany) (https://app.transifex.com/the-broke-sommeliers/teams/304909/de_DE/)\n"
@@ -1056,13 +1056,10 @@ msgid "References"
 msgstr "Referenzen"
 
 #: wine_cellar/apps/wine/templates/wine_list.html:29
-#| msgid "Bottle in Stock"
-#| msgid_plural "Bottles in Stock"
 msgid "Bottles in stock"
 msgstr "Flaschen auf Lager"
 
 #: wine_cellar/apps/wine/templates/wine_list.html:36
-#| msgid "Region"
 msgid "Regions"
 msgstr "Regionen"
 
@@ -1176,35 +1173,35 @@ msgstr ""
 msgid "Upload"
 msgstr "Hochladen"
 
-#: wine_cellar/apps/wine/views.py:211 wine_cellar/apps/wine/views.py:242
+#: wine_cellar/apps/wine/views.py:212 wine_cellar/apps/wine/views.py:243
 msgid "A wine with these details already exists in your cellar."
 msgstr "Ein Wein mit diesen Daten existiert bereits in deinem Keller."
 
-#: wine_cellar/apps/wine/views.py:390
+#: wine_cellar/apps/wine/views.py:409
 msgid "AI request failed: invalid API key. Please check your configuration."
 msgstr ""
 "KI-Anfrage fehlgeschlagen: ungültiger API-Schlüssel. Bitte überprüfe deine "
 "Konfiguration."
 
-#: wine_cellar/apps/wine/views.py:399
+#: wine_cellar/apps/wine/views.py:418
 msgid ""
 "AI request failed: rate limit reached. Please wait a moment and try again."
 msgstr ""
 "KI-Anfrage fehlgeschlagen: Rate-Limit erreicht. Bitte warte einen Moment und"
 " versuche es erneut."
 
-#: wine_cellar/apps/wine/views.py:412
+#: wine_cellar/apps/wine/views.py:431
 msgid ""
 "AI service is temporarily unavailable. Please try again in a few minutes."
 msgstr ""
 "KI-Dienst vorübergehend nicht verfügbar. Bitte versuche es in einigen "
 "Minuten erneut."
 
-#: wine_cellar/apps/wine/views.py:420
+#: wine_cellar/apps/wine/views.py:439
 msgid "AI request timed out. Please try again."
 msgstr "KI-Anfrage hat das Zeitlimit überschritten. Bitte versuche es erneut."
 
-#: wine_cellar/apps/wine/views.py:427
+#: wine_cellar/apps/wine/views.py:446
 msgid ""
 "Could not connect to the AI service. Please check your network and "
 "configuration."
@@ -1212,13 +1209,13 @@ msgstr ""
 "Verbindung zum KI-Dienst fehlgeschlagen. Bitte überprüfe dein Netzwerk und "
 "deine Konfiguration."
 
-#: wine_cellar/apps/wine/views.py:435
+#: wine_cellar/apps/wine/views.py:454
 msgid "AI request failed. Please try again or check your configuration."
 msgstr ""
 "KI-Anfrage fehlgeschlagen. Bitte versuche es erneut oder überprüfe deine "
 "Konfiguration."
 
-#: wine_cellar/apps/wine/views.py:451
+#: wine_cellar/apps/wine/views.py:470
 msgid ""
 "Failed to process AI response. Please check the uploaded images and try "
 "again."

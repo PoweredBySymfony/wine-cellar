@@ -10,7 +10,13 @@
                 <p class="scan-page__helptext">
                     {% blocktranslate %}Scan the barcode of a bottle to quickly add or remove a wine from your cellar.{% endblocktranslate %}
                 </p>
-                <div id="scanner" data-zxing_wasm_url="{% static 'zxing_reader.wasm' %}" data-auto-open="true"></div>
+                <div id="scanner"
+                     data-zxing_wasm_url="{% static 'zxing_reader.wasm' %}"
+                     data-auto-open="true"
+                     data-label-capture="true"
+                     data-ai-enabled="{{ ai_enabled|yesno:'true,false' }}"
+                     data-ai-upload-url="{% url 'wine-ai-upload' %}"
+                     data-csrf-token="{{ csrf_token }}"></div>
             </div>
         </div>
     </div>

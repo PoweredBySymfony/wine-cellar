@@ -137,6 +137,13 @@ FR_JS = {
     "Camera access requires HTTPS on a phone. Open this page through a secure HTTPS address.": "L’accès à la caméra nécessite HTTPS sur un téléphone. Ouvrez cette page avec une adresse HTTPS sécurisée.",
     "No camera is available, or this browser does not support camera access.": "Aucune caméra n’est disponible ou ce navigateur ne permet pas d’y accéder.",
     "Camera access was denied. Allow camera access in your browser settings, then try again.": "L’accès à la caméra a été refusé. Autorisez-le dans les paramètres du navigateur, puis réessayez.",
+    "No code found. Hold the bottle label steady inside the frame.": "Aucun code détecté. Maintenez l’étiquette de la bouteille immobile dans le cadre.",
+    "Label detected. Keep still…": "Étiquette détectée. Ne bougez plus…",
+    "Photo captured. Analysing the label…": "Photo prise. Analyse de l’étiquette…",
+    "The automatic label analysis failed. You can try again or upload a photo manually.": "L’analyse automatique de l’étiquette a échoué. Vous pouvez réessayer ou importer une photo.",
+    "Take photo": "Prendre la photo",
+    "Try again": "Réessayer",
+    "Upload a photo": "Importer une photo",
 }
 
 DE_JS = {
@@ -144,6 +151,13 @@ DE_JS = {
     "Camera access requires HTTPS on a phone. Open this page through a secure HTTPS address.": "Der Kamerazugriff erfordert HTTPS auf einem Smartphone. Öffnen Sie diese Seite über eine sichere HTTPS-Adresse.",
     "No camera is available, or this browser does not support camera access.": "Es ist keine Kamera verfügbar oder dieser Browser unterstützt den Kamerazugriff nicht.",
     "Camera access was denied. Allow camera access in your browser settings, then try again.": "Der Kamerazugriff wurde verweigert. Erlauben Sie ihn in den Browsereinstellungen und versuchen Sie es erneut.",
+    "No code found. Hold the bottle label steady inside the frame.": "Kein Code erkannt. Halten Sie das Flaschenetikett ruhig im Rahmen.",
+    "Label detected. Keep still…": "Etikett erkannt. Bitte stillhalten…",
+    "Photo captured. Analysing the label…": "Foto aufgenommen. Etikett wird analysiert…",
+    "The automatic label analysis failed. You can try again or upload a photo manually.": "Die automatische Etikettenanalyse ist fehlgeschlagen. Versuchen Sie es erneut oder laden Sie ein Foto hoch.",
+    "Take photo": "Foto aufnehmen",
+    "Try again": "Erneut versuchen",
+    "Upload a photo": "Foto hochladen",
 }
 
 DE_PLURALS = {

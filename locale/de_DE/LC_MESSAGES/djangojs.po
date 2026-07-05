@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-03 19:06+0200\n"
+"POT-Creation-Date: 2026-07-05 17:43+0200\n"
 "PO-Revision-Date: 2026-02-17 16:42+0000\n"
 "Last-Translator: goa punk <goapunk@riseup.net>, 2026\n"
 "Language-Team: German (Germany) (https://app.transifex.com/the-broke-sommeliers/teams/304909/de_DE/)\n"
@@ -88,6 +88,38 @@ msgstr ""
 "Der Kamerazugriff wurde verweigert. Erlauben Sie ihn in den "
 "Browsereinstellungen und versuchen Sie es erneut."
 
-#: wine_cellar/react/react_bar_code.tsx:145
+#: wine_cellar/react/react_bar_code.tsx:25
+msgid "No code found. Hold the bottle label steady inside the frame."
+msgstr "Kein Code erkannt. Halten Sie das Flaschenetikett ruhig im Rahmen."
+
+#: wine_cellar/react/react_bar_code.tsx:27
+msgid "Label detected. Keep still…"
+msgstr "Etikett erkannt. Bitte stillhalten…"
+
+#: wine_cellar/react/react_bar_code.tsx:28
+msgid "Photo captured. Analysing the label…"
+msgstr "Foto aufgenommen. Etikett wird analysiert…"
+
+#: wine_cellar/react/react_bar_code.tsx:30
+msgid ""
+"The automatic label analysis failed. You can try again or upload a photo "
+"manually."
+msgstr ""
+"Die automatische Etikettenanalyse ist fehlgeschlagen. Versuchen Sie es "
+"erneut oder laden Sie ein Foto hoch."
+
+#: wine_cellar/react/react_bar_code.tsx:32
+msgid "Take photo"
+msgstr "Foto aufnehmen"
+
+#: wine_cellar/react/react_bar_code.tsx:33
+msgid "Try again"
+msgstr "Erneut versuchen"
+
+#: wine_cellar/react/react_bar_code.tsx:34
+msgid "Upload a photo"
+msgstr "Foto hochladen"
+
+#: wine_cellar/react/react_bar_code.tsx:318
 msgid "All"
 msgstr "Alle"

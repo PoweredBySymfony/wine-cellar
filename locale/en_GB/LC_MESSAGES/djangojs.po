@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-03 19:06+0200\n"
+"POT-Creation-Date: 2026-07-05 17:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -84,6 +84,38 @@ msgstr ""
 "Camera access was denied. Allow camera access in your browser settings, then"
 " try again."
 
-#: wine_cellar/react/react_bar_code.tsx:145
+#: wine_cellar/react/react_bar_code.tsx:25
+msgid "No code found. Hold the bottle label steady inside the frame."
+msgstr "No code found. Hold the bottle label steady inside the frame."
+
+#: wine_cellar/react/react_bar_code.tsx:27
+msgid "Label detected. Keep still…"
+msgstr "Label detected. Keep still…"
+
+#: wine_cellar/react/react_bar_code.tsx:28
+msgid "Photo captured. Analysing the label…"
+msgstr "Photo captured. Analysing the label…"
+
+#: wine_cellar/react/react_bar_code.tsx:30
+msgid ""
+"The automatic label analysis failed. You can try again or upload a photo "
+"manually."
+msgstr ""
+"The automatic label analysis failed. You can try again or upload a photo "
+"manually."
+
+#: wine_cellar/react/react_bar_code.tsx:32
+msgid "Take photo"
+msgstr "Take photo"
+
+#: wine_cellar/react/react_bar_code.tsx:33
+msgid "Try again"
+msgstr "Try again"
+
+#: wine_cellar/react/react_bar_code.tsx:34
+msgid "Upload a photo"
+msgstr "Upload a photo"
+
+#: wine_cellar/react/react_bar_code.tsx:318
 msgid "All"
 msgstr "All"
