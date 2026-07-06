@@ -26,7 +26,10 @@ module.exports = {
         './wine_cellar/assets/css/homepage.css',
         './wine_cellar/assets/css/button.css',
         './wine_cellar/assets/css/theme.css',
+        './wine_cellar/assets/css/wine-panel.css',
         './wine_cellar/assets/js/navigation.ts',
+        './wine_cellar/assets/js/password_visibility.ts',
+        './wine_cellar/assets/js/wine_detail_panel.ts',
       ],
     },
     tom_select: {

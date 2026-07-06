@@ -29,6 +29,7 @@
                   {% if attrs.id %}id="{{ attrs.id }}"{% endif %}
                   aria-invalid="{% if attrs.errors %}true{% else %}false{% endif %}">{% if attrs.value is not None %}{{ attrs.value }}{% endif %}</textarea>
     {% else %}
+        {% if attrs.type == "password" %}<span class="password-field">{% endif %}
         <input {% if attrs.required %}required{% endif %}
                {% if attrs.disabled %}disabled{% endif %}
                {% if attrs.readonly %}readonly{% endif %}
@@ -39,6 +40,19 @@
                {% if attrs.value is not None %}value="{{ attrs.value }}"{% endif %}
                aria-invalid="{% if attrs.errors %}true{% else %}false{% endif %}"
                type="{{ attrs.type }}">
+        {% if attrs.type == "password" %}
+            <button class="password-field__toggle"
+                    type="button"
+                    data-password-toggle
+                    aria-label="{% translate "Show password" %}"
+                    aria-pressed="false">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"></path>
+                    <circle cx="12" cy="12" r="2.5"></circle>
+                </svg>
+            </button>
+        </span>
+    {% endif %}
     {% endif %}
      {% if attrs.help_text and attrs.type == "password" %}
         <div class="form-hint">{% slot help_text %}{% endslot %}</div>

@@ -1,0 +1,29 @@
+{% extends "account/base_entrance.html" %}
+{% load account allauth i18n %}
+{% block head_title %}{% translate "Confirm Email Address" %}{% endblock head_title %}
+{% block content %}
+    <header class="auth-card__header">
+        <p class="auth-card__brand">Wine Cellar</p>
+        <h1>{% translate "Confirm your address." %}</h1>
+        {% if confirmation and can_confirm %}
+            <p>{% blocktranslate with email=confirmation.email_address.email %}Activate the account linked to {{ email }}.{% endblocktranslate %}</p>
+        {% endif %}
+    </header>
+    {% if confirmation %}
+        {% if can_confirm %}
+            {% url "account_confirm_email" confirmation.key as action_url %}
+            {% element form method="post" action=action_url %}
+                {% slot actions %}
+                    {% csrf_token %}
+                    {{ redirect_field }}
+                    {% element button type="submit" %}{% translate "Verify and activate my account" %}{% endelement %}
+                {% endslot %}
+            {% endelement %}
+        {% else %}
+            <p>{% translate "This address is already linked to another account." %}</p>
+        {% endif %}
+    {% else %}
+        <p>{% translate "This verification link has expired or is invalid." %}</p>
+        <a href="{% url 'account_email' %}">{% translate "Request a new verification email" %}</a>
+    {% endif %}
+{% endblock content %}

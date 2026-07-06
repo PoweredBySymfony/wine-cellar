@@ -1,0 +1,5 @@
+Votre lien de connexion Wine Cellar :
+{{ login_url }}
+
+Ce lien est personnel, expire rapidement et ne fonctionne qu'une seule fois.
+Si vous n'êtes pas à l'origine de cette demande, ignorez ce message.

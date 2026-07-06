@@ -1,0 +1,25 @@
+{% extends "account/base_entrance.html" %}
+{% load allauth i18n %}
+{% block head_title %}{% translate "Signup" %}{% endblock head_title %}
+{% block content %}
+    <header class="auth-card__header">
+        <p class="auth-card__brand">Wine Cellar</p>
+        <h1>{% translate "Create your cellar." %}</h1>
+        <p>{% translate "Start composing your collection in just a few seconds." %}</p>
+    </header>
+    {% url "account_signup" as signup_url %}
+    {% element form form=form method="post" action=signup_url tags="entrance,signup" %}
+        {% slot body %}
+            {% csrf_token %}
+            {% element fields form=form %}{% endelement %}
+            {{ redirect_field }}
+        {% endslot %}
+        {% slot actions %}
+            {% element button type="submit" tags="prominent,signup" %}{% translate "Create my account" %}{% endelement %}
+        {% endslot %}
+    {% endelement %}
+    <p class="auth-card__privacy">{% translate "We will email you a secure link to verify your address before activating your account." %}</p>
+    <p class="auth-card__switch">
+        {% translate "Already have an account?" %} <a href="{{ login_url }}">{% translate "Sign In" %}</a>
+    </p>
+{% endblock content %}

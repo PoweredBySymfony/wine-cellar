@@ -1,0 +1,92 @@
+{% load i18n %}
+<article class="wine-sheet">
+    <header class="wine-sheet__header">
+        <div>
+            {% if wine.get_vineyards %}<p class="wine-sheet__estate">{{ wine.get_vineyards }}</p>{% endif %}
+            <h2 id="wine-panel-title">{{ wine.name }}</h2>
+            <p class="wine-sheet__origin">
+                {% if wine.appellation %}{{ wine.appellation }} · {% endif %}
+                {% if wine.region %}{{ wine.region }} · {% endif %}
+                {{ wine.get_country_display }}
+            </p>
+        </div>
+        <button class="wine-sheet__close" type="button" data-wine-panel-close aria-label="{% translate "Close wine details" %}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+        </button>
+    </header>
+
+    <div class="wine-sheet__visual">
+        {% if wine.vintage %}<strong>{% translate "Vintage" %} {{ wine.vintage }}</strong>{% endif %}
+        <img src="{{ wine.image_thumbnail }}"
+             width="180"
+             height="255"
+             alt="{% blocktranslate with name=wine.name %}Bottle of {{ name }}{% endblocktranslate %}">
+    </div>
+
+    <dl class="wine-sheet__highlights">
+        <div>
+            <dt>{% translate "Stock" %}</dt>
+            <dd class="{% if not wine.total_stock %}wine-sheet__danger{% endif %}">
+                {% if wine.total_stock %}
+                    {% blocktranslate count counter=wine.total_stock %}{{ counter }} bottle{% plural %}{{ counter }} bottles{% endblocktranslate %}
+                {% else %}
+                    {% translate "Out of stock" %}
+                {% endif %}
+            </dd>
+        </div>
+        <div>
+            <dt>{% translate "Rating" %}</dt>
+            <dd>{% if wine.rating %}{{ wine.rating }}/10{% else %}—{% endif %}</dd>
+        </div>
+        <div>
+            <dt>{% translate "Drink by" %}</dt>
+            <dd>{{ wine.drink_by|default:"—" }}</dd>
+        </div>
+    </dl>
+
+    {% if wine.get_grapes %}
+        <div class="wine-sheet__chips">
+            {% for grape in wine.grapes.all %}<span>{{ grape }}</span>{% endfor %}
+        </div>
+    {% endif %}
+
+    {% if wine.comment %}
+        <section class="wine-sheet__note">
+            <h3>{% translate "Tasting notes" %}</h3>
+            <p>{{ wine.comment }}</p>
+        </section>
+    {% endif %}
+
+    <dl class="wine-sheet__facts">
+        {% with item=wine.get_stock.first %}
+            {% if item %}
+                <div>
+                    <dt><i class="fa-solid fa-location-dot" aria-hidden="true"></i> {% translate "Location" %}</dt>
+                    <dd>{{ item.storage }}{% if item.row %} · {% translate "Row" %} {{ item.row }}{% endif %}{% if item.column %} · {{ item.column }}{% endif %}</dd>
+                </div>
+            {% endif %}
+        {% endwith %}
+        <div>
+            <dt><i class="fa-solid fa-wine-bottle" aria-hidden="true"></i> {% translate "Type" %}</dt>
+            <dd>{{ wine.get_type }}</dd>
+        </div>
+        {% if wine.abv %}
+            <div>
+                <dt><i class="fa-solid fa-percent" aria-hidden="true"></i> {% translate "ABV" %}</dt>
+                <dd>{{ wine.abv }}%</dd>
+            </div>
+        {% endif %}
+    </dl>
+
+    <div class="wine-sheet__actions">
+        <a class="pure-button button__primary" href="{% url 'stock-add' wine.pk %}">
+            <span aria-hidden="true">＋</span> {% translate "Add to stock" %}
+        </a>
+        <a class="pure-button button__secondary" href="{% url 'wine-edit' wine.pk %}">
+            <i class="fa-solid fa-pen" aria-hidden="true"></i> {% translate "Edit" %}
+        </a>
+        <a class="pure-button button__secondary" href="{% url 'wine-detail' wine.pk %}">
+            {% translate "Full details" %}
+        </a>
+    </div>
+</article>

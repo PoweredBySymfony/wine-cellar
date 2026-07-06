@@ -1,0 +1,14 @@
+{% extends "account/base_entrance.html" %}
+{% load i18n %}
+{% block head_title %}{% translate "Check your inbox" %}{% endblock head_title %}
+{% block content %}
+    <div class="auth-card__status-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M3 6.5 12 13l9-6.5M4 5h16a1 1 0 0 1 1 1v12H3V6a1 1 0 0 1 1-1Z"></path></svg>
+    </div>
+    <header class="auth-card__header">
+        <h1>{% translate "Your link is on its way." %}</h1>
+        <p>{% translate "If this address belongs to an active account, you will receive a secure sign-in link in a moment." %}</p>
+    </header>
+    <p class="auth-card__privacy">{% translate "For your security, the link expires quickly and works only once. You can close this page." %}</p>
+    <a class="pure-button button__primary auth-card__back" href="{% url 'account_login' %}">{% translate "Use another email" %}</a>
+{% endblock content %}

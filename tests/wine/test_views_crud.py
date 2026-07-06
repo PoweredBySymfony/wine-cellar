@@ -17,6 +17,22 @@ def test_wine_detail_authenticated(client, user, wine_factory):
 
 
 @pytest.mark.django_db
+def test_wine_detail_panel_authenticated(client, user, wine_factory):
+    wine = wine_factory(user=user, name="Panel wine")
+    client.force_login(user)
+
+    response = client.get(
+        reverse("wine-detail", kwargs={"pk": wine.pk}),
+        {"panel": "1"},
+    )
+
+    assert response.status_code == HTTPStatus.OK
+    assertTemplateUsed(response=response, template_name="wine_detail_panel.html")
+    assert b"Panel wine" in response.content
+    assert b"<html" not in response.content
+
+
+@pytest.mark.django_db
 def test_wine_detail_unauthenticated(client, user, wine_factory):
     wine = wine_factory(user=user)
     r = client.get(reverse("wine-detail", kwargs={"pk": wine.pk}), follow=True)

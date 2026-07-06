@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 from django.utils.csp import CSP
@@ -128,6 +129,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Password reset and passwordless sign-in links remain valid for 15 minutes.
+PASSWORD_RESET_TIMEOUT = 15 * 60
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
@@ -179,15 +183,31 @@ MEDIA_URL = "media/"
 
 MAP_BASEURL = "https://tiles.openfreemap.org/styles/liberty"
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-SITE_URL = "http://127.0.0.1:8003"
+EMAIL_HOST = os.environ.get("DJANGO_EMAIL_HOST")
+EMAIL_PORT = os.environ.get("DJANGO_EMAIL_PORT", "25")
+EMAIL_HOST_USER = os.environ.get("DJANGO_EMAIL_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("DJANGO_EMAIL_PASSWORD")
+EMAIL_USE_TLS = os.environ.get("DJANGO_EMAIL_USE_TLS", "False") == "True"
+EMAIL_USE_SSL = os.environ.get("DJANGO_EMAIL_USE_SSL", "False") == "True"
+DEFAULT_FROM_EMAIL = os.environ.get(
+    "DJANGO_DEFAULT_FROM_EMAIL",
+    "webmaster@localhost",
+)
+EMAIL_BACKEND = (
+    "django.core.mail.backends.smtp.EmailBackend"
+    if EMAIL_HOST
+    else "django.core.mail.backends.console.EmailBackend"
+)
+SITE_URL = os.environ.get("DJANGO_SITE_URL", "http://127.0.0.1:8003")
 ACCOUNT_ADAPTER = (
     "wine_cellar.apps.user.signup_adapter.ConfigurableSignupAccountAdapter"
 )
 
-ENABLE_SIGNUPS = False
-ACCOUNT_EMAIL_VERIFICATION = "optional"
-ACCOUNT_SIGNUP_FIELDS = ["email", "username*", "password1*", "password2*"]
+ENABLE_SIGNUPS = os.environ.get("DJANGO_ENABLE_SIGNUPS", "False") == "True"
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_LOGIN_METHODS = {"email"}
+ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
+ACCOUNT_EMAIL_SUBJECT_PREFIX = ""
 
 SECURE_CSP = {
     "default-src": [CSP.SELF],

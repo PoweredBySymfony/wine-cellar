@@ -1,0 +1,24 @@
+{% extends "account/base_entrance.html" %}
+{% load i18n %}
+{% block head_title %}{% translate "Sign In" %}{% endblock head_title %}
+{% block content %}
+    <header class="auth-card__header">
+        <p class="auth-card__brand">Wine Cellar</p>
+        <h1>{% translate "Welcome back." %}</h1>
+        <p>{% translate "Find your cellar and your latest discoveries." %}</p>
+    </header>
+    <form class="pure-form" method="post" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        {% if form.non_field_errors %}<div class="form-errorlist">{{ form.non_field_errors }}</div>{% endif %}
+        <div class="form-container">
+            <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+            {{ form.email }}
+            {% if form.email.errors %}<div class="form-errorlist">{{ form.email.errors }}</div>{% endif %}
+        </div>
+        <button class="pure-button button__primary" type="submit">{% translate "Email me a secure sign-in link" %}</button>
+    </form>
+    <p class="auth-card__privacy">{% translate "The link is personal, expires quickly and can only be used once." %}</p>
+    <p class="auth-card__switch">
+        {% translate "No account yet?" %} <a href="{% url 'account_signup' %}">{% translate "Create an account" %}</a>
+    </p>
+{% endblock content %}

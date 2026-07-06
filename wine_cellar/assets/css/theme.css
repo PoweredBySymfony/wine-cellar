@@ -650,6 +650,8 @@ summary {
 }
 
 .selection .wine-card__detail-container {
+  width: 100%;
+  box-sizing: border-box;
   padding: 1.2rem 1.2rem 0.5rem;
 }
 
@@ -674,8 +676,10 @@ summary {
 }
 
 .wine-card__meta strong {
+  min-width: 4ch;
   flex: 0 0 auto;
   color: var(--wine-champagne);
+  text-align: right;
 }
 
 .wine-card__region {

@@ -1,0 +1,6 @@
+Bienvenue dans Wine Cellar.
+
+Confirmez votre adresse email pour activer votre compte :
+{{ activate_url }}
+
+Si vous n'êtes pas à l'origine de cette inscription, ignorez ce message.

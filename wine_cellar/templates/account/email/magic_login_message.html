@@ -1,0 +1,18 @@
+{% extends "account/email/base_message.html" %}
+{# djlint:off H021 #}
+{% block email_title %}Votre lien de connexion{% endblock email_title %}
+{% block email_content %}
+  <p style="margin:0 0 10px;color:#9a713d;font-size:12px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;">Connexion sécurisée</p>
+  <h1 style="margin:0 0 16px;font-family:Georgia,'Times New Roman',serif;font-size:32px;line-height:1.2;font-weight:500;color:#211b19;">Entrez dans votre cave</h1>
+  <p style="margin:0 0 28px;color:#665b56;font-size:16px;line-height:1.65;">Utilisez ce lien personnel pour vous connecter à Wine Cellar. Il expire rapidement et ne fonctionnera qu’une seule fois.</p>
+  <table role="presentation" cellspacing="0" cellpadding="0">
+    <tr>
+      <td style="background:#64283c;border-radius:12px;">
+        <a href="{{ login_url }}" style="display:inline-block;padding:15px 24px;color:#ffffff;font-size:15px;font-weight:700;text-decoration:none;">Me connecter à Wine Cellar</a>
+      </td>
+    </tr>
+  </table>
+  <p style="margin:28px 0 8px;color:#776a64;font-size:13px;line-height:1.6;">Si le bouton ne fonctionne pas, copiez ce lien dans votre navigateur :</p>
+  <p style="margin:0;word-break:break-all;color:#64283c;font-size:12px;line-height:1.6;">{{ login_url }}</p>
+{% endblock email_content %}
+{# djlint:on #}

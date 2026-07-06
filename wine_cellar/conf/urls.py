@@ -36,7 +36,12 @@ from wine_cellar.apps.storage.views import (
     StorageListView,
     StorageUpdateView,
 )
-from wine_cellar.apps.user.views import UserSettingsView
+from wine_cellar.apps.user.views import (
+    MagicLoginConfirmView,
+    MagicLoginRequestView,
+    MagicLoginSentView,
+    UserSettingsView,
+)
 from wine_cellar.apps.wine.views import (
     HomePageView,
     WineChooseActionView,
@@ -55,6 +60,21 @@ from wine_cellar.apps.wine.views import (
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("i18n/", include("django.conf.urls.i18n")),
+    path(
+        "accounts/login/",
+        MagicLoginRequestView.as_view(),
+        name="account_login",
+    ),
+    path(
+        "accounts/login/sent/",
+        MagicLoginSentView.as_view(),
+        name="magic-login-sent",
+    ),
+    path(
+        "accounts/login/magic/<uidb64>/<token>/",
+        MagicLoginConfirmView.as_view(),
+        name="magic-login-confirm",
+    ),
     path("accounts/", include("allauth.urls")),
     path("user/settings/", UserSettingsView.as_view(), name="user-settings"),
     path("storages/", StorageListView.as_view(), name="storage-list"),

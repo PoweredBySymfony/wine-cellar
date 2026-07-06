@@ -255,6 +255,11 @@ class WineDetailView(DetailView):
         qs = super().get_queryset()
         return qs.filter(user=self.request.user)
 
+    def get_template_names(self):
+        if self.request.GET.get("panel") == "1":
+            return ["wine_detail_panel.html"]
+        return super().get_template_names()
+
 
 class WineListView(FilterView):
     model = Wine

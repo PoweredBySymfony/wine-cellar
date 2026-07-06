@@ -1,0 +1,45 @@
+{# djlint:off H021 #}
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block email_title %}Wine Cellar{% endblock email_title %}</title>
+  </head>
+  <body style="margin:0;padding:0;background:#f4f0eb;color:#211b19;font-family:Arial,Helvetica,sans-serif;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f4f0eb;padding:32px 12px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:600px;background:#ffffff;border:1px solid #ded3c8;border-radius:20px;overflow:hidden;">
+            <tr>
+              <td style="padding:28px 36px;border-bottom:1px solid #eee5dc;">
+                <table role="presentation" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td width="44" height="44" align="center" style="width:44px;height:44px;background:#64283c;border-radius:50%;">
+                      <img src="{{ site_url }}/static/images/favicon.svg" width="30" height="30" alt="" style="display:block;width:30px;height:30px;border:0;">
+                    </td>
+                    <td style="padding-left:12px;font-family:Georgia,'Times New Roman',serif;font-size:23px;color:#211b19;">
+                      Wine <strong style="color:#64283c;">Cellar</strong>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:38px 36px 18px;">
+                {% block email_content %}{% endblock email_content %}
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:20px 36px 30px;color:#776a64;font-size:12px;line-height:1.6;">
+                Ce message concerne la sécurité de votre compte Wine Cellar.<br>
+                Si vous n’êtes pas à l’origine de cette demande, vous pouvez l’ignorer.
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
+{# djlint:on #}

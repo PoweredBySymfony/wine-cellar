@@ -18,7 +18,10 @@
             {% if wine.vintage %}<strong>{{ wine.vintage }}</strong>{% endif %}
         </div>
         <h2 class="wine-card__title">
-            <a class="wine-card__link" href="{% url 'wine-detail' wine.pk %}">{{ wine.name }}</a>
+            <a class="wine-card__link"
+               href="{% url 'wine-detail' wine.pk %}"
+               data-wine-panel-url="{% url 'wine-detail' wine.pk %}?panel=1"
+               aria-haspopup="dialog">{{ wine.name }}</a>
         </h2>
         {% if wine.get_grapes %}
             <p><span class="text--gray">{% translate "Grapes" %}:</span> {{ wine.get_grapes | truncatechars:31 | title }}</p>

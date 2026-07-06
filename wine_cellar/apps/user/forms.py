@@ -1,7 +1,20 @@
+from django import forms
 from django.forms import ModelForm
 from django.utils.translation import gettext_lazy as _
 
 from wine_cellar.apps.user.models import UserSettings
+
+
+class MagicLoginRequestForm(forms.Form):
+    email = forms.EmailField(
+        label=_("Email"),
+        widget=forms.EmailInput(
+            attrs={
+                "autocomplete": "email",
+                "placeholder": _("you@example.com"),
+            }
+        ),
+    )
 
 
 class UserSettingsForm(ModelForm):
