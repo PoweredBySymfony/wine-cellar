@@ -33,7 +33,13 @@ SECRET_KEY = "django-insecure-9_c29b95eghgc@yx6lyuiz3*h#oy7*zh8*vb36d1cwe)b4%v0d
 DEBUG = True
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "").split()
+CSRF_TRUSTED_ORIGINS = os.environ.get(
+    "DJANGO_CSRF_TRUSTED_ORIGINS",
+    "",
+).split()
+if os.environ.get("DJANGO_TRUST_PROXY_HEADERS", "False") == "True":
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
