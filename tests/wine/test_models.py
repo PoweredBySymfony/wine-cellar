@@ -111,6 +111,29 @@ def test_get_type_label(user, wine_factory):
 
 
 @pytest.mark.django_db
+@pytest.mark.parametrize(
+    ("wine_type", "temperature"),
+    [
+        ("WH", "8–12°C"),
+        ("RE", "16–18°C"),
+        ("RO", "8–10°C"),
+        ("SP", "6–8°C"),
+        ("DE", "8–12°C"),
+        ("FO", "12–16°C"),
+        ("OR", "10–14°C"),
+    ],
+)
+def test_recommended_serving_temperature(
+    user,
+    wine_factory,
+    wine_type,
+    temperature,
+):
+    wine = wine_factory(user=user, wine_type=wine_type)
+    assert wine.recommended_serving_temperature == temperature
+
+
+@pytest.mark.django_db
 def test_get_category_label(user, wine_factory):
     wine = wine_factory(user=user, wine_type="WH")
     wine.category = "DR"

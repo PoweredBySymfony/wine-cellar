@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-05 17:43+0200\n"
+"POT-Creation-Date: 2026-07-06 15:23+0200\n"
 "PO-Revision-Date: 2025-10-14 19:37+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -41,6 +41,7 @@ msgstr "Entrer une description pour le stockage"
 #: wine_cellar/apps/storage/templates/storage_item_history.html:19
 #: wine_cellar/apps/storage/templates/storage_list.html:22
 #: wine_cellar/apps/wine/templates/wine_detail.html:208
+#: wine_cellar/apps/wine/templates/wine_detail_panel.html:67
 msgid "Location"
 msgstr "Localisation"
 
@@ -261,17 +262,20 @@ msgstr "Vin"
 #: wine_cellar/apps/storage/templates/storage_detail.html:58
 #: wine_cellar/apps/storage/templates/storage_item_history.html:20
 #: wine_cellar/apps/wine/templates/wine_detail.html:209
+#: wine_cellar/apps/wine/templates/wine_detail_panel.html:71
 msgid "Row"
 msgstr "Rangée"
 
 #: wine_cellar/apps/storage/templates/storage_detail.html:59
 #: wine_cellar/apps/storage/templates/storage_item_history.html:21
 #: wine_cellar/apps/wine/templates/wine_detail.html:210
+#: wine_cellar/apps/wine/templates/wine_detail_panel.html:72
 msgid "Cell"
-msgstr "Emplacement"
+msgstr "Case"
 
 #: wine_cellar/apps/storage/templates/storage_detail.html:60
 #: wine_cellar/apps/wine/templates/wine_detail.html:211
+#: wine_cellar/apps/wine/templates/wine_detail_panel.html:92
 msgid "Drink by"
 msgstr "À boire avant"
 
@@ -288,8 +292,9 @@ msgstr "Ouvert"
 #: wine_cellar/apps/wine/templates/includes/edit_delete_buttons.html:3
 #: wine_cellar/apps/wine/templates/includes/edit_delete_buttons.html:4
 #: wine_cellar/apps/wine/templates/wine_detail.html:225
+#: wine_cellar/apps/wine/templates/wine_detail_panel.html:123
 msgid "Edit"
-msgstr "Editer"
+msgstr "Modifier"
 
 #: wine_cellar/apps/storage/templates/storage_detail.html:94
 #: wine_cellar/apps/wine/templates/wine_detail.html:227
@@ -383,27 +388,35 @@ msgstr ""
 "Vous devez avez au moins un stockage. Vous ne pouvez pas supprimer le "
 "dernier stockage."
 
-#: wine_cellar/apps/user/forms.py:13
+#: wine_cellar/apps/user/forms.py:10
+msgid "Email"
+msgstr ""
+
+#: wine_cellar/apps/user/forms.py:14
+msgid "you@example.com"
+msgstr ""
+
+#: wine_cellar/apps/user/forms.py:26
 msgid "Language"
 msgstr "Langue"
 
-#: wine_cellar/apps/user/forms.py:14
+#: wine_cellar/apps/user/forms.py:27
 msgid "Currency"
 msgstr "Devise"
 
-#: wine_cellar/apps/user/forms.py:15
+#: wine_cellar/apps/user/forms.py:28
 msgid "Email Notifications"
 msgstr "Notifications par e-mail"
 
-#: wine_cellar/apps/user/forms.py:18
+#: wine_cellar/apps/user/forms.py:31
 msgid "The language the site is displayed in."
 msgstr "La langue dans laquelle le site est affiché."
 
-#: wine_cellar/apps/user/forms.py:19
+#: wine_cellar/apps/user/forms.py:32
 msgid "The default currency used for the price of a wine."
 msgstr "La devise par défaut utilisée pour le prix d'un vin."
 
-#: wine_cellar/apps/user/forms.py:20
+#: wine_cellar/apps/user/forms.py:33
 msgid "Receive email notifications."
 msgstr "Recevoir les notifications par email."
 
@@ -415,6 +428,14 @@ msgstr "Réglages"
 #: wine_cellar/apps/user/templates/settings.html:18
 msgid "General"
 msgstr "Général"
+
+#: wine_cellar/apps/user/views.py:88
+msgid "You are now signed in."
+msgstr ""
+
+#: wine_cellar/apps/user/views.py:92
+msgid "This sign-in link is invalid or has expired. Request a new one."
+msgstr ""
 
 #: wine_cellar/apps/wine/emails.py:13
 msgid "Reminder to finish your opened wine(s)"
@@ -470,7 +491,7 @@ msgid "Oldest First"
 msgstr "Plus vieux en premier"
 
 #: wine_cellar/apps/wine/filters.py:50
-#: wine_cellar/apps/wine/templates/wine_card.html:29
+#: wine_cellar/apps/wine/templates/wine_card.html:32
 #: wine_cellar/apps/wine/templates/wine_detail.html:132
 msgid "Drink By"
 msgstr "Boire d'ici"
@@ -507,6 +528,7 @@ msgstr "Catégorie"
 
 #: wine_cellar/apps/wine/filters.py:99
 #: wine_cellar/apps/wine/templates/wine_detail.html:64
+#: wine_cellar/apps/wine/templates/wine_detail_panel.html:19
 msgid "Vintage"
 msgstr "Millésime"
 
@@ -516,7 +538,7 @@ msgid "Vineyard"
 msgstr "Vignoble"
 
 #: wine_cellar/apps/wine/filters.py:101
-#: wine_cellar/apps/wine/templates/wine_card.html:24
+#: wine_cellar/apps/wine/templates/wine_card.html:27
 #: wine_cellar/apps/wine/templates/wine_detail.html:110
 msgid "Grapes"
 msgstr "Raisins"
@@ -770,6 +792,67 @@ msgstr "Appellation"
 msgid "Food"
 msgstr "Accord"
 
+#: wine_cellar/apps/wine/models.py:273 wine_cellar/apps/wine/models.py:277
+msgid "8–12°C"
+msgstr ""
+
+#: wine_cellar/apps/wine/models.py:274
+msgid "16–18°C"
+msgstr ""
+
+#: wine_cellar/apps/wine/models.py:275
+msgid "8–10°C"
+msgstr ""
+
+#: wine_cellar/apps/wine/models.py:276
+msgid "6–8°C"
+msgstr ""
+
+#: wine_cellar/apps/wine/models.py:278
+msgid "12–16°C"
+msgstr ""
+
+#: wine_cellar/apps/wine/models.py:279
+msgid "10–14°C"
+msgstr ""
+
+#: wine_cellar/apps/wine/models.py:281
+msgid "Cellar temperature"
+msgstr ""
+
+#: wine_cellar/apps/wine/templates/emails/drink_by_reminder.txt:2
+#, python-format
+msgid ""
+"\n"
+"Hello %(user)s,\n"
+"\n"
+"this is a reminder that the following wines in your cellar should be drunk soon:\n"
+msgstr ""
+
+#: wine_cellar/apps/wine/templates/emails/drink_by_reminder.txt:8
+#, fuzzy
+#| msgid "Drink by"
+msgid "drink by"
+msgstr "À boire avant"
+
+#: wine_cellar/apps/wine/templates/emails/drink_by_reminder.txt:11
+#: wine_cellar/apps/wine/templates/emails/opened_bottle_reminder.txt:11
+msgid "You can find your cellar here:"
+msgstr ""
+
+#: wine_cellar/apps/wine/templates/emails/opened_bottle_reminder.txt:2
+#, python-format
+msgid ""
+"\n"
+"Hello %(user)s,\n"
+"\n"
+"this is a reminder that you have opened bottle(s) that should be finished soon:\n"
+msgstr ""
+
+#: wine_cellar/apps/wine/templates/emails/opened_bottle_reminder.txt:8
+msgid "finish by"
+msgstr ""
+
 #: wine_cellar/apps/wine/templates/forms/form_field.html:8
 #: wine_cellar/templates/allauth/elements/field.html:9
 msgid "This field is optional"
@@ -860,6 +943,7 @@ msgid "%(count)s bt."
 msgstr "%(count)s bt."
 
 #: wine_cellar/apps/wine/templates/wine_card.html:6
+#: wine_cellar/apps/wine/templates/wine_detail_panel.html:33
 msgid "Out of stock"
 msgstr "Rupture"
 
@@ -868,19 +952,20 @@ msgstr "Rupture"
 msgid "Image of a glass of %(type)s wine"
 msgstr "Image d'un verre de vin %(type)s"
 
-#: wine_cellar/apps/wine/templates/wine_card.html:32
+#: wine_cellar/apps/wine/templates/wine_card.html:35
 #: wine_cellar/apps/wine/templates/wine_detail.html:137
 #: wine_cellar/apps/wine/templates/wine_list.html:43
 msgid "Drink soon"
 msgstr "À boire bientôt"
 
-#: wine_cellar/apps/wine/templates/wine_card.html:37
+#: wine_cellar/apps/wine/templates/wine_card.html:40
 #, python-format
 msgid "Rating: %(rating)s out of 10"
 msgstr "Note : %(rating)s sur 10"
 
-#: wine_cellar/apps/wine/templates/wine_card.html:44
+#: wine_cellar/apps/wine/templates/wine_card.html:47
 #: wine_cellar/apps/wine/templates/wine_detail.html:191
+#: wine_cellar/apps/wine/templates/wine_detail_panel.html:28
 msgid "Stock"
 msgstr "Stock"
 
@@ -992,6 +1077,7 @@ msgid "Next image"
 msgstr "Image suivante"
 
 #: wine_cellar/apps/wine/templates/wine_detail.html:69
+#: wine_cellar/apps/wine/templates/wine_detail_panel.html:87
 #: wine_cellar/apps/wine/templates/wine_list.html:78
 msgid "Type"
 msgstr "Type"
@@ -1010,8 +1096,9 @@ msgid "Country"
 msgstr "Pays"
 
 #: wine_cellar/apps/wine/templates/wine_detail.html:120
+#: wine_cellar/apps/wine/templates/wine_detail_panel.html:98
 msgid "ABV"
-msgstr "Taux d'alcool"
+msgstr "Taux d’alcool"
 
 #: wine_cellar/apps/wine/templates/wine_detail.html:150
 msgid "Sources"
@@ -1055,6 +1142,71 @@ msgstr "Ajouter"
 #: wine_cellar/apps/wine/templates/wine_detail.html:242
 msgid "No bottles in stock."
 msgstr "Aucune bouteille en stock."
+
+#: wine_cellar/apps/wine/templates/wine_detail_panel.html:13
+msgid "Close wine details"
+msgstr "Fermer la fiche du vin"
+
+#: wine_cellar/apps/wine/templates/wine_detail_panel.html:23
+#, python-format
+msgid "Bottle of %(name)s"
+msgstr ""
+
+#: wine_cellar/apps/wine/templates/wine_detail_panel.html:31
+#, fuzzy, python-format
+#| msgid "%(count)s bt."
+msgid "%(counter)s bottle"
+msgid_plural "%(counter)s bottles"
+msgstr[0] "%(count)s bt."
+msgstr[1] "%(count)s bt."
+msgstr[2] "%(count)s bt."
+
+#: wine_cellar/apps/wine/templates/wine_detail_panel.html:38
+#: wine_cellar/apps/wine/templates/wine_detail_panel.html:83
+#| msgid "Rating"
+msgid "My rating"
+msgstr "Ma note"
+
+#: wine_cellar/apps/wine/templates/wine_detail_panel.html:42
+msgid "Serving"
+msgstr "Service"
+
+#: wine_cellar/apps/wine/templates/wine_detail_panel.html:54
+msgid "Tasting notes"
+msgstr "Notes de dégustation"
+
+#: wine_cellar/apps/wine/templates/wine_detail_panel.html:59
+#| msgid "No storages yet."
+msgid "No tasting notes yet."
+msgstr "Aucune note de dégustation pour le moment."
+
+#: wine_cellar/apps/wine/templates/wine_detail_panel.html:74
+msgid "Not assigned"
+msgstr "Non renseigné"
+
+#: wine_cellar/apps/wine/templates/wine_detail_panel.html:79
+msgid "Temperature"
+msgstr "Température"
+
+#: wine_cellar/apps/wine/templates/wine_detail_panel.html:107
+#| msgid "Out of stock"
+msgid "Add to stock"
+msgstr "Ajouter au stock"
+
+#: wine_cellar/apps/wine/templates/wine_detail_panel.html:112
+#: wine_cellar/apps/wine/templates/wine_detail_panel.html:116
+msgid "Remove a bottle"
+msgstr "Retirer une bouteille"
+
+#: wine_cellar/apps/wine/templates/wine_detail_panel.html:126
+#: wine_cellar/templates/base.html:56
+msgid "Scan"
+msgstr "Scanner"
+
+#: wine_cellar/apps/wine/templates/wine_detail_panel.html:129
+#| msgid "Details"
+msgid "Full details"
+msgstr "Fiche complète"
 
 #: wine_cellar/apps/wine/templates/wine_edit.html:15
 #: wine_cellar/apps/wine/templates/wine_edit.html:18
@@ -1127,6 +1279,10 @@ msgstr "Ajoutez votre premier vin ou effacez les filtres actifs."
 msgid "Add wine"
 msgstr "Ajouter un vin"
 
+#: wine_cellar/apps/wine/templates/wine_list.html:119
+msgid "Opening wine details…"
+msgstr ""
+
 #: wine_cellar/apps/wine/templates/wine_map.html:4
 msgid "Map of your wines"
 msgstr "Carte de vos vins"
@@ -1187,31 +1343,31 @@ msgstr "Télécharger"
 msgid "A wine with these details already exists in your cellar."
 msgstr "Un vin avec ces détails existe déjà dans votre cave."
 
-#: wine_cellar/apps/wine/views.py:409
+#: wine_cellar/apps/wine/views.py:414
 msgid "AI request failed: invalid API key. Please check your configuration."
 msgstr ""
 "Échec de la requête IA : clé API invalide. Veuillez vérifier votre "
 "configuration."
 
-#: wine_cellar/apps/wine/views.py:418
+#: wine_cellar/apps/wine/views.py:423
 msgid ""
 "AI request failed: rate limit reached. Please wait a moment and try again."
 msgstr ""
 "Échec de la requête IA : limite de taux atteinte. Veuillez patienter un "
 "moment et réessayer."
 
-#: wine_cellar/apps/wine/views.py:431
+#: wine_cellar/apps/wine/views.py:436
 msgid ""
 "AI service is temporarily unavailable. Please try again in a few minutes."
 msgstr ""
 "Le service IA est temporairement indisponible. Veuillez réessayer dans "
 "quelques minutes."
 
-#: wine_cellar/apps/wine/views.py:439
+#: wine_cellar/apps/wine/views.py:444
 msgid "AI request timed out. Please try again."
 msgstr "La requête IA a expiré. Veuillez réessayer."
 
-#: wine_cellar/apps/wine/views.py:446
+#: wine_cellar/apps/wine/views.py:451
 msgid ""
 "Could not connect to the AI service. Please check your network and "
 "configuration."
@@ -1219,12 +1375,12 @@ msgstr ""
 "Impossible de se connecter au service IA. Veuillez vérifier votre réseau et "
 "votre configuration."
 
-#: wine_cellar/apps/wine/views.py:454
+#: wine_cellar/apps/wine/views.py:459
 msgid "AI request failed. Please try again or check your configuration."
 msgstr ""
 "Échec de la requête IA. Veuillez réessayer ou vérifier votre configuration."
 
-#: wine_cellar/apps/wine/views.py:470
+#: wine_cellar/apps/wine/views.py:475
 msgid ""
 "Failed to process AI response. Please check the uploaded images and try "
 "again."
@@ -1232,29 +1388,171 @@ msgstr ""
 "Impossible de traiter la réponse IA. Veuillez vérifier les images "
 "téléchargées et réessayer."
 
-#: wine_cellar/conf/settings.py:146
+#: wine_cellar/conf/settings.py:156
 msgid "German"
 msgstr "Allemand"
 
-#: wine_cellar/conf/settings.py:147
+#: wine_cellar/conf/settings.py:157
 msgid "French"
 msgstr "Français"
 
-#: wine_cellar/conf/settings.py:148
+#: wine_cellar/conf/settings.py:158
 msgid "British English"
 msgstr "Englais (U.K.)"
 
-#: wine_cellar/conf/settings.py:154
+#: wine_cellar/conf/settings.py:164
 msgid "Euro"
 msgstr "Euro"
 
-#: wine_cellar/conf/settings.py:155
+#: wine_cellar/conf/settings.py:165
 msgid "Dollar"
 msgstr "Dollar"
 
-#: wine_cellar/conf/settings.py:156
+#: wine_cellar/conf/settings.py:166
 msgid "Pound Sterling"
 msgstr "Livre Sterling"
+
+#: wine_cellar/templates/account/email_confirm.html:3
+#, fuzzy
+#| msgid "Email Addresses"
+msgid "Confirm Email Address"
+msgstr "Adresses e-mail"
+
+#: wine_cellar/templates/account/email_confirm.html:7
+msgid "Confirm your address."
+msgstr ""
+
+#: wine_cellar/templates/account/email_confirm.html:9
+#, python-format
+msgid "Activate the account linked to %(email)s."
+msgstr ""
+
+#: wine_cellar/templates/account/email_confirm.html:19
+msgid "Verify and activate my account"
+msgstr ""
+
+#: wine_cellar/templates/account/email_confirm.html:23
+msgid "This address is already linked to another account."
+msgstr ""
+
+#: wine_cellar/templates/account/email_confirm.html:26
+msgid "This verification link has expired or is invalid."
+msgstr ""
+
+#: wine_cellar/templates/account/email_confirm.html:27
+msgid "Request a new verification email"
+msgstr ""
+
+#: wine_cellar/templates/account/login.html:3
+#: wine_cellar/templates/account/signup.html:23
+msgid "Sign In"
+msgstr ""
+
+#: wine_cellar/templates/account/login.html:7
+msgid "Welcome back."
+msgstr ""
+
+#: wine_cellar/templates/account/login.html:8
+msgid "Find your cellar and your latest discoveries."
+msgstr ""
+
+#: wine_cellar/templates/account/login.html:18
+msgid "Email me a secure sign-in link"
+msgstr ""
+
+#: wine_cellar/templates/account/login.html:20
+msgid "The link is personal, expires quickly and can only be used once."
+msgstr ""
+
+#: wine_cellar/templates/account/login.html:22
+msgid "No account yet?"
+msgstr ""
+
+#: wine_cellar/templates/account/login.html:22
+msgid "Create an account"
+msgstr ""
+
+#: wine_cellar/templates/account/magic_login_sent.html:3
+msgid "Check your inbox"
+msgstr ""
+
+#: wine_cellar/templates/account/magic_login_sent.html:9
+msgid "Your link is on its way."
+msgstr ""
+
+#: wine_cellar/templates/account/magic_login_sent.html:10
+msgid ""
+"If this address belongs to an active account, you will receive a secure "
+"sign-in link in a moment."
+msgstr ""
+
+#: wine_cellar/templates/account/magic_login_sent.html:12
+msgid ""
+"For your security, the link expires quickly and works only once. You can "
+"close this page."
+msgstr ""
+
+#: wine_cellar/templates/account/magic_login_sent.html:13
+msgid "Use another email"
+msgstr ""
+
+#: wine_cellar/templates/account/signup.html:3
+msgid "Signup"
+msgstr ""
+
+#: wine_cellar/templates/account/signup.html:7
+msgid "Create your cellar."
+msgstr ""
+
+#: wine_cellar/templates/account/signup.html:8
+msgid "Start composing your collection in just a few seconds."
+msgstr ""
+
+#: wine_cellar/templates/account/signup.html:18
+msgid "Create my account"
+msgstr ""
+
+#: wine_cellar/templates/account/signup.html:21
+msgid ""
+"We will email you a secure link to verify your address before activating "
+"your account."
+msgstr ""
+
+#: wine_cellar/templates/account/signup.html:23
+msgid "Already have an account?"
+msgstr ""
+
+#: wine_cellar/templates/account/verification_sent.html:3
+#, fuzzy
+#| msgid "Email Addresses"
+msgid "Verify Your Email Address"
+msgstr "Adresses e-mail"
+
+#: wine_cellar/templates/account/verification_sent.html:9
+msgid "Check your inbox."
+msgstr ""
+
+#: wine_cellar/templates/account/verification_sent.html:10
+msgid ""
+"We have sent you a verification link. Your account will remain locked until "
+"you click it."
+msgstr ""
+
+#: wine_cellar/templates/account/verification_sent.html:12
+msgid ""
+"Nothing yet? Check your spam folder, then try signing in to request a new "
+"email."
+msgstr ""
+
+#: wine_cellar/templates/account/verification_sent.html:13
+msgid "Back to sign in"
+msgstr ""
+
+#: wine_cellar/templates/allauth/elements/field.html:47
+#, fuzzy
+#| msgid "Change Password"
+msgid "Show password"
+msgstr "Changer le mot de passe"
 
 #: wine_cellar/templates/base.html:27
 msgid "Main navigation"
@@ -1275,10 +1573,6 @@ msgstr "Ma cave"
 #: wine_cellar/templates/base.html:50
 msgid "Map"
 msgstr "Carte"
-
-#: wine_cellar/templates/base.html:56
-msgid "Scan"
-msgstr "Scanner"
 
 #: wine_cellar/templates/base.html:64
 msgid "Change language"

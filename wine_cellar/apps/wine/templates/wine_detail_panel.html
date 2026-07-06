@@ -35,12 +35,12 @@
             </dd>
         </div>
         <div>
-            <dt>{% translate "Rating" %}</dt>
+            <dt>{% translate "My rating" %}</dt>
             <dd>{% if wine.rating %}{{ wine.rating }}/10{% else %}—{% endif %}</dd>
         </div>
         <div>
-            <dt>{% translate "Drink by" %}</dt>
-            <dd>{{ wine.drink_by|default:"—" }}</dd>
+            <dt>{% translate "Serving" %}</dt>
+            <dd>{{ wine.recommended_serving_temperature }}</dd>
         </div>
     </dl>
 
@@ -50,43 +50,84 @@
         </div>
     {% endif %}
 
-    {% if wine.comment %}
-        <section class="wine-sheet__note">
-            <h3>{% translate "Tasting notes" %}</h3>
-            <p>{{ wine.comment }}</p>
-        </section>
-    {% endif %}
+    <section class="wine-sheet__note">
+        <h3>{% translate "Tasting notes" %}</h3>
+        <p>
+            {% if wine.comment %}
+                {{ wine.comment }}
+            {% else %}
+                <span class="wine-sheet__empty-value">{% translate "No tasting notes yet." %}</span>
+            {% endif %}
+        </p>
+    </section>
 
-    <dl class="wine-sheet__facts">
-        {% with item=wine.get_stock.first %}
-            {% if item %}
+    {% with item=wine.get_stock.first %}
+        <dl class="wine-sheet__facts">
+            <div>
+                <dt><i class="fa-solid fa-location-dot" aria-hidden="true"></i> {% translate "Location" %}</dt>
+                <dd>
+                    {% if item %}
+                        {{ item.storage }}
+                        {% if item.row %} · {% translate "Row" %} {{ item.row }}{% endif %}
+                        {% if item.column %} · {% translate "Cell" %} {{ item.column }}{% endif %}
+                    {% else %}
+                        <span class="wine-sheet__empty-value">{% translate "Not assigned" %}</span>
+                    {% endif %}
+                </dd>
+            </div>
+            <div>
+                <dt><i class="fa-solid fa-temperature-half" aria-hidden="true"></i> {% translate "Temperature" %}</dt>
+                <dd>{{ wine.recommended_serving_temperature }}</dd>
+            </div>
+            <div>
+                <dt><i class="fa-regular fa-star" aria-hidden="true"></i> {% translate "My rating" %}</dt>
+                <dd>{% if wine.rating %}{{ wine.rating }} / 10{% else %}—{% endif %}</dd>
+            </div>
+            <div>
+                <dt><i class="fa-solid fa-wine-bottle" aria-hidden="true"></i> {% translate "Type" %}</dt>
+                <dd>{{ wine.get_type }}</dd>
+            </div>
+            {% if wine.drink_by %}
                 <div>
-                    <dt><i class="fa-solid fa-location-dot" aria-hidden="true"></i> {% translate "Location" %}</dt>
-                    <dd>{{ item.storage }}{% if item.row %} · {% translate "Row" %} {{ item.row }}{% endif %}{% if item.column %} · {{ item.column }}{% endif %}</dd>
+                    <dt><i class="fa-regular fa-calendar" aria-hidden="true"></i> {% translate "Drink by" %}</dt>
+                    <dd>{{ wine.drink_by }}</dd>
                 </div>
             {% endif %}
-        {% endwith %}
-        <div>
-            <dt><i class="fa-solid fa-wine-bottle" aria-hidden="true"></i> {% translate "Type" %}</dt>
-            <dd>{{ wine.get_type }}</dd>
-        </div>
-        {% if wine.abv %}
-            <div>
-                <dt><i class="fa-solid fa-percent" aria-hidden="true"></i> {% translate "ABV" %}</dt>
-                <dd>{{ wine.abv }}%</dd>
-            </div>
-        {% endif %}
-    </dl>
+            {% if wine.abv %}
+                <div>
+                    <dt><i class="fa-solid fa-percent" aria-hidden="true"></i> {% translate "ABV" %}</dt>
+                    <dd>{{ wine.abv }}%</dd>
+                </div>
+            {% endif %}
+        </dl>
 
-    <div class="wine-sheet__actions">
-        <a class="pure-button button__primary" href="{% url 'stock-add' wine.pk %}">
-            <span aria-hidden="true">＋</span> {% translate "Add to stock" %}
-        </a>
-        <a class="pure-button button__secondary" href="{% url 'wine-edit' wine.pk %}">
-            <i class="fa-solid fa-pen" aria-hidden="true"></i> {% translate "Edit" %}
-        </a>
-        <a class="pure-button button__secondary" href="{% url 'wine-detail' wine.pk %}">
-            {% translate "Full details" %}
-        </a>
-    </div>
+        <div class="wine-sheet__stock-actions">
+            <a class="wine-sheet__stock-button wine-sheet__stock-button--add"
+               href="{% url 'stock-add' wine.pk %}">
+                <span aria-hidden="true">＋</span> {% translate "Add to stock" %}
+            </a>
+            {% if item %}
+                <a class="wine-sheet__stock-button wine-sheet__stock-button--remove"
+                   href="{% url 'stock-delete' item.pk %}">
+                    <span aria-hidden="true">−</span> {% translate "Remove a bottle" %}
+                </a>
+            {% else %}
+                <span class="wine-sheet__stock-button wine-sheet__stock-button--disabled" aria-disabled="true">
+                    <span aria-hidden="true">−</span> {% translate "Remove a bottle" %}
+                </span>
+            {% endif %}
+        </div>
+
+        <div class="wine-sheet__utility-actions">
+            <a href="{% url 'wine-edit' wine.pk %}">
+                <i class="fa-solid fa-pen" aria-hidden="true"></i> {% translate "Edit" %}
+            </a>
+            <a href="{% url 'wine-scan' %}">
+                <i class="fa-solid fa-expand" aria-hidden="true"></i> {% translate "Scan" %}
+            </a>
+            <a href="{% url 'wine-detail' wine.pk %}">
+                <i class="fa-regular fa-file-lines" aria-hidden="true"></i> {% translate "Full details" %}
+            </a>
+        </div>
+    {% endwith %}
 </article>

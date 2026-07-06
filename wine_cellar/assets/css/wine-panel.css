@@ -9,7 +9,7 @@
   color: var(--wine-ink);
   background: #f8f4ee;
   border: 0;
-  overflow: auto;
+  overflow: hidden;
   box-shadow: -24px 0 60px -36px rgb(30 10 18 / 55%);
   opacity: 0;
   transform: translateX(28px);
@@ -54,8 +54,10 @@
 
 .wine-sheet {
   min-height: 100%;
-  padding: clamp(1.25rem, 4vw, 2rem);
+  padding: clamp(0.85rem, 2.2vh, 1.35rem) clamp(1rem, 3vw, 1.75rem);
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 .wine-sheet__header {
@@ -66,7 +68,7 @@
 }
 
 .wine-sheet__estate {
-  margin: 0 0 0.55rem;
+  margin: 0 0 0.3rem;
   color: var(--wine-muted);
   font-size: 0.75rem;
   letter-spacing: 0.1em;
@@ -75,14 +77,14 @@
 
 .wine-sheet__header h2 {
   margin: 0;
-  font-size: clamp(2rem, 8vw, 2.7rem);
+  font-size: clamp(1.8rem, 6vw, 2.3rem);
   font-weight: 500;
   line-height: 1.05;
   overflow-wrap: anywhere;
 }
 
 .wine-sheet__origin {
-  margin: 0.65rem 0 0;
+  margin: 0.35rem 0 0;
   color: #71645d;
   font-style: italic;
 }
@@ -118,8 +120,8 @@
 .wine-sheet__visual {
   position: relative;
   display: grid;
-  min-height: 255px;
-  margin: 1.5rem 0;
+  min-height: clamp(150px, 23dvh, 215px);
+  margin: clamp(0.55rem, 1.5vh, 0.9rem) 0;
   place-items: center;
   background: #ebe0ce;
   border: 1px solid #dacbb9;
@@ -140,8 +142,8 @@
 
 .wine-sheet__visual strong {
   position: absolute;
-  top: 1rem;
-  left: 1rem;
+  top: 0.75rem;
+  left: 0.75rem;
   z-index: 1;
   padding: 0.5rem 0.75rem;
   color: #986c32;
@@ -154,7 +156,7 @@
   position: relative;
   width: auto;
   max-width: 72%;
-  height: 255px;
+  height: clamp(150px, 23dvh, 215px);
   object-fit: contain;
 }
 
@@ -166,11 +168,16 @@
 }
 
 .wine-sheet__highlights > div {
-  padding: 0.85rem 0.5rem;
+  display: flex;
+  min-height: 62px;
+  padding: 0.6rem 0.4rem;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
   text-align: center;
-  background: rgb(255 255 255 / 72%);
+  background: rgb(255 255 255 / 82%);
   border: 1px solid #dfd2c5;
-  border-radius: 14px;
+  border-radius: 17px;
 }
 
 .wine-sheet__highlights dt,
@@ -184,7 +191,7 @@
 }
 
 .wine-sheet__highlights dd {
-  margin: 0.35rem 0 0;
+  margin: 0.2rem 0 0;
   font-family: Fraunces, Georgia, serif;
   font-size: 1.25rem;
 }
@@ -197,11 +204,11 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.45rem;
-  margin: 1.25rem 0;
+  margin: clamp(0.5rem, 1.4vh, 0.8rem) 0;
 }
 
 .wine-sheet__chips span {
-  padding: 0.45rem 0.75rem;
+  padding: 0.35rem 0.65rem;
   color: #554b46;
   background: #e7ded5;
   border-radius: 999px;
@@ -209,11 +216,11 @@
 }
 
 .wine-sheet__note {
-  margin-top: 1.25rem;
-  padding: 1rem;
-  background: rgb(255 255 255 / 72%);
+  margin-top: clamp(0.3rem, 0.9vh, 0.55rem);
+  padding: 0.7rem 0.9rem;
+  background: rgb(255 255 255 / 82%);
   border: 1px solid #dfd2c5;
-  border-radius: 14px;
+  border-radius: 17px;
 }
 
 .wine-sheet__note h3,
@@ -222,18 +229,23 @@
 }
 
 .wine-sheet__note p {
-  margin-top: 0.55rem;
-  line-height: 1.5;
+  display: -webkit-box;
+  margin-top: 0.35rem;
+  overflow: hidden;
+  line-height: 1.4;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .wine-sheet__facts {
   display: grid;
-  gap: 1rem;
-  margin: 1.5rem 0;
+  gap: clamp(0.35rem, 0.9vh, 0.6rem);
+  margin: clamp(0.55rem, 1.4vh, 0.9rem) 0;
 }
 
 .wine-sheet__facts > div {
   display: flex;
+  min-height: 28px;
   align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
@@ -251,25 +263,106 @@
 
 .wine-sheet__facts dd {
   margin: 0;
+  color: #2a2320;
+  font-weight: 500;
   text-align: right;
 }
 
-.wine-sheet__actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.65rem;
+.wine-sheet__empty-value {
+  color: #8a7d76;
+  font-weight: 400;
+  font-style: italic;
 }
 
-.wine-sheet__actions a {
+.wine-sheet__stock-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin-top: auto;
+  padding-top: 0.4rem;
+}
+
+.wine-sheet__stock-button {
   display: flex;
-  min-height: 46px;
+  min-height: 44px;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+  gap: 0.35rem;
+  padding: 0.6rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    color 170ms ease-out,
+    background 170ms ease-out,
+    border-color 170ms ease-out,
+    transform 170ms ease-out;
 }
 
-.wine-sheet__actions a:first-child {
-  grid-column: 1 / -1;
+.wine-sheet__stock-button--add {
+  color: #ffffff;
+  background: var(--wine-bordeaux);
+  border: 2px solid #ffffff;
+  outline: 2px solid var(--wine-bordeaux);
+  outline-offset: 1px;
+}
+
+.wine-sheet__stock-button--add:hover {
+  color: #ffffff;
+  background: var(--wine-bordeaux-deep);
+  outline-color: var(--wine-bordeaux-deep);
+  transform: translateY(-1px);
+}
+
+.wine-sheet__stock-button--remove {
+  color: #5f5150;
+  background: #eee7df;
+  border: 1px solid #e2d8ce;
+}
+
+.wine-sheet__stock-button--remove:hover {
+  color: var(--wine-bordeaux);
+  background: #e8ddd5;
+  transform: translateY(-1px);
+}
+
+.wine-sheet__stock-button--disabled {
+  color: #a79d97;
+  background: #f0eae4;
+  border: 1px solid transparent;
+  cursor: not-allowed;
+}
+
+.wine-sheet__utility-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.35rem;
+  margin-top: 0.4rem;
+}
+
+.wine-sheet__utility-actions a {
+  display: flex;
+  min-height: 38px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.35rem;
+  color: #332a27;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    color 170ms ease-out,
+    background 170ms ease-out;
+}
+
+.wine-sheet__utility-actions a:hover {
+  color: var(--wine-bordeaux);
+  background: #ece3db;
 }
 
 @media (max-width: 35rem) {
@@ -283,6 +376,46 @@
 
   .wine-sheet__highlights dd {
     font-size: 1.05rem;
+  }
+
+  .wine-sheet__stock-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .wine-sheet__utility-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .wine-sheet__utility-actions a:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-height: 820px) and (min-width: 36rem) {
+  .wine-sheet__visual,
+  .wine-sheet__visual img {
+    min-height: 145px;
+    height: 18dvh;
+  }
+
+  .wine-sheet__facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .wine-sheet__facts > div {
+    min-width: 0;
+  }
+
+  .wine-sheet__facts dd {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+@media (max-height: 680px) {
+  .wine-panel {
+    overflow: auto;
   }
 }
 

@@ -53,6 +53,20 @@ FR = {
     "Create Wine": "Créer le vin",
     "Scan again": "Scanner à nouveau",
     "General Settings": "Paramètres généraux",
+    "My rating": "Ma note",
+    "Serving": "Service",
+    "Tasting notes": "Notes de dégustation",
+    "No tasting notes yet.": "Aucune note de dégustation pour le moment.",
+    "Temperature": "Température",
+    "Not assigned": "Non renseigné",
+    "Remove a bottle": "Retirer une bouteille",
+    "Add to stock": "Ajouter au stock",
+    "Edit": "Modifier",
+    "Scan": "Scanner",
+    "Full details": "Fiche complète",
+    "Close wine details": "Fermer la fiche du vin",
+    "Cell": "Case",
+    "ABV": "Taux d’alcool",
 }
 
 DE = {
@@ -130,6 +144,18 @@ DE = {
     "Current language": "Aktuelle Sprache",
     "Account settings": "Kontoeinstellungen",
     "General Settings": "Allgemeine Einstellungen",
+    "My rating": "Meine Bewertung",
+    "Serving": "Serviertemperatur",
+    "Tasting notes": "Verkostungsnotizen",
+    "No tasting notes yet.": "Noch keine Verkostungsnotizen.",
+    "Temperature": "Temperatur",
+    "Not assigned": "Nicht zugewiesen",
+    "Remove a bottle": "Flasche entfernen",
+    "Add to stock": "Zum Bestand hinzufügen",
+    "Full details": "Vollständige Details",
+    "Close wine details": "Weindetails schließen",
+    "Cell": "Fach",
+    "ABV": "Alkoholgehalt",
 }
 
 FR_JS = {

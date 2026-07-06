@@ -30,6 +30,11 @@ def test_wine_detail_panel_authenticated(client, user, wine_factory):
     assertTemplateUsed(response=response, template_name="wine_detail_panel.html")
     assert b"Panel wine" in response.content
     assert b"<html" not in response.content
+    assert b"Serving" in response.content
+    assert b"Temperature" in response.content
+    assert b"Location" in response.content
+    assert b"My rating" in response.content
+    assert b"Remove a bottle" in response.content
 
 
 @pytest.mark.django_db

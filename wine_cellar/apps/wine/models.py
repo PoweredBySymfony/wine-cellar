@@ -268,6 +268,19 @@ class Wine(UserContentModel):
         return WineType(self.wine_type).label
 
     @property
+    def recommended_serving_temperature(self):
+        temperatures = {
+            WineType.WHITE: _("8–12°C"),
+            WineType.RED: _("16–18°C"),
+            WineType.ROSE: _("8–10°C"),
+            WineType.SPARKLING: _("6–8°C"),
+            WineType.DESSERT: _("8–12°C"),
+            WineType.FORTIFIED: _("12–16°C"),
+            WineType.ORANGE: _("10–14°C"),
+        }
+        return temperatures.get(self.wine_type, _("Cellar temperature"))
+
+    @property
     def get_category(self):
         if self.category:
             return Category(self.category).label
