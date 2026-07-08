@@ -55,7 +55,10 @@
                                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 12h10"></path></svg>
                                     <span>{% translate "Scan" %}</span>
                                 </a>
-                                <a href="{% url 'wine-add-choose' %}" class="site-nav__add">
+                                <a href="{% url 'wine-add-choose' %}"
+                                   class="site-nav__add"
+                                   data-modal-form="true"
+                                   aria-haspopup="dialog">
                                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
                                     <span>{% translate "Add wine" %}</span>
                                 </a>
@@ -106,6 +109,20 @@
                 {% endblock content %}
             {% endblock allauth_wrapper %}
         </main>
+        <dialog class="form-modal" id="form-modal" aria-labelledby="form-modal-title">
+            <div class="form-modal__chrome">
+                <div class="form-modal__header">
+                    <h2 id="form-modal-title" data-form-modal-title>{% translate "Edit" %}</h2>
+                    <button class="form-modal__close"
+                            type="button"
+                            data-form-modal-close
+                            aria-label="{% translate "Close" %}">
+                        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <div class="form-modal__body" data-form-modal-body></div>
+            </div>
+        </dialog>
         <footer class="footer">
             <p>
                 AGPL 3.0 | {% translate "Version" %} {% get_setting "VERSION" %} | <a href="https://github.com/the-broke-sommeliers/wine-cellar"

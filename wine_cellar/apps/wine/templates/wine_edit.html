@@ -18,24 +18,75 @@
     <h1 class="header__title">{% translate 'Edit Wine' %}</h1>
 {% endblock header %}
 {% block content %}
-    <div class="pure-g">
-        <div class="pure-u-1 pure-u-lg-1-2 m-auto">
+    <div class="form-shell">
+        <div class="form-card form-card--wide">
             <form method="post"
                   enctype="multipart/form-data"
-                  class="form"
+                  class="form form--sectioned"
                   novalidate>
                 {% csrf_token %}
-                <div class="form__fields">
-                    {% for field in form %}
-                        {% include 'forms/form_field.html' %}
-                        {% if field.name == "barcode" %}
+                <div class="form-section-grid">
+                    <section class="form-section">
+                        <h2>{% translate "Identity" %}</h2>
+                        <div class="form__fields form__fields--compact">
+                            {% include 'forms/form_field.html' with field=form.name %}
+                            {% include 'forms/form_field.html' with field=form.wine_type %}
+                            {% include 'forms/form_field.html' with field=form.category %}
+                            {% include 'forms/form_field.html' with field=form.size %}
+                        </div>
+                    </section>
+                    <section class="form-section">
+                        <h2>{% translate "Taste profile" %}</h2>
+                        <div class="form__fields form__fields--compact">
+                            {% include 'forms/form_field.html' with field=form.attributes %}
+                            {% include 'forms/form_field.html' with field=form.grapes %}
+                            {% include 'forms/form_field.html' with field=form.vintage %}
+                            {% include 'forms/form_field.html' with field=form.abv %}
+                            {% include 'forms/form_field.html' with field=form.rating %}
+                        </div>
+                    </section>
+                    <section class="form-section form-section--full">
+                        <h2>{% translate "Origin" %}</h2>
+                        <div class="form__fields form__fields--two">
+                            {% include 'forms/form_field.html' with field=form.country %}
+                            {% include 'forms/form_field.html' with field=form.vineyard %}
+                            {% include 'forms/form_field.html' with field=form.region %}
+                            {% include 'forms/form_field.html' with field=form.appellation %}
+                        </div>
+                        {% include 'forms/form_field.html' with field=form.location %}
+                    </section>
+                    <section class="form-section">
+                        <h2>{% translate "Purchase" %}</h2>
+                        <div class="form__fields form__fields--compact">
+                            {% include 'forms/form_field.html' with field=form.source %}
+                            {% include 'forms/form_field.html' with field=form.price %}
+                            {% include 'forms/form_field.html' with field=form.barcode %}
                             <div id="scanner"
                                  data-zxing_wasm_url="{% static 'zxing_reader.wasm' %}"
                                  data-target-input="id_barcode"></div>
-                        {% endif %}
-                    {% endfor %}
+                        </div>
+                    </section>
+                    <section class="form-section">
+                        <h2>{% translate "Notes" %}</h2>
+                        <div class="form__fields form__fields--compact">
+                            {% include 'forms/form_field.html' with field=form.drink_by %}
+                            {% include 'forms/form_field.html' with field=form.stock %}
+                            {% include 'forms/form_field.html' with field=form.food_pairings %}
+                            {% include 'forms/form_field.html' with field=form.comment %}
+                        </div>
+                    </section>
+                    <section class="form-section form-section--full">
+                        <h2>{% translate "Images" %}</h2>
+                        <div class="form__fields form__fields--two">
+                            {% include 'forms/form_field.html' with field=form.image_front %}
+                            {% include 'forms/form_field.html' with field=form.image_back %}
+                            {% include 'forms/form_field.html' with field=form.image_front_label %}
+                            {% include 'forms/form_field.html' with field=form.image_back_label %}
+                        </div>
+                    </section>
                 </div>
-                <div class="pure-controls">
+                {{ form.form_step }}
+                <div class="pure-controls form-actions">
                     <div class="form__buttons">
                         <div class="form__buttons-right">
                             <button type="submit" class="pure-button button__primary">{% translate "Save" %}</button>

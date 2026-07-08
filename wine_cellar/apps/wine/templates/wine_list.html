@@ -107,7 +107,7 @@
                         <li class="selection__empty">
                             <h2>{% translate "Your selection is empty" %}</h2>
                             <p>{% translate "Add your first wine or clear the active filters." %}</p>
-                            <a href="{% url 'wine-add-choose' %}" class="site-nav__add">{% translate "Add wine" %}</a>
+                            <a href="{% url 'wine-add-choose' %}" class="site-nav__add" data-modal-form="true" aria-haspopup="dialog">{% translate "Add wine" %}</a>
                         </li>
                     {% endfor %}
                 </ul>

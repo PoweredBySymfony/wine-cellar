@@ -54,7 +54,7 @@
         </span>
     {% endif %}
     {% endif %}
-     {% if attrs.help_text and attrs.type == "password" %}
+    {% if attrs.help_text and attrs.type == "password" and "password1" not in attrs.name and "password2" not in attrs.name %}
         <div class="form-hint">{% slot help_text %}{% endslot %}</div>
     {% endif %}
 </div>

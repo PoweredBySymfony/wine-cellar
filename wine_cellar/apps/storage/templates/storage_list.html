@@ -10,7 +10,7 @@
                 <div class="card__header">
                     <h3>{% translate "Your Storages" %}</h3>
                     <div class="card__table-summary">
-                        <a href="{% url 'storage-add' %}" class="pure-button button__primary"><i class="fa-regular fa-plus"></i> <span>{% translate "Add Storage" %}</span></a>
+                        <a href="{% url 'storage-add' %}" class="pure-button button__primary" data-modal-form="true" aria-haspopup="dialog"><i class="fa-regular fa-plus"></i> <span>{% translate "Add Storage" %}</span></a>
                         <a href="{% url 'stock-history' %}" class="pure-button button__neutral"><i class="fa-solid fa-clock-rotate-left"></i> <span>{% translate "History" %}</span></a>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                                     {% endif %}
                                 </td>
                                 <td class="card__table-actions">
-                                    <a href="{% url 'storage-edit' item.pk %}" title="{% translate "Edit" %}" aria-label="{% translate "Edit" %}"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+                                    <a href="{% url 'storage-edit' item.pk %}" data-modal-form="true" aria-haspopup="dialog" title="{% translate "Edit" %}" aria-label="{% translate "Edit" %}"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
                                     <a href="{% url 'storage-delete' item.pk %}" title="{% translate "Delete" %}" aria-label="{% translate "Delete" %}"><i class="fa-regular fa-trash-can" aria-hidden="true"></i></a>
                                 </td>
                             </tr>

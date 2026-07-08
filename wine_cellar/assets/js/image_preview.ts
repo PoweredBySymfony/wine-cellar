@@ -1,6 +1,10 @@
 function initImagePreview() {
   document.querySelectorAll('input[type="file"]').forEach((inputEl) => {
     const input = inputEl as HTMLInputElement
+    if (input.dataset.imagePreviewReady === 'true') {
+      return
+    }
+    input.dataset.imagePreviewReady = 'true'
     const container = input.closest('.form-container')
     const preview = container?.querySelector(
       '.image-preview'
@@ -87,3 +91,5 @@ if (document.readyState === 'loading') {
 } else {
   initImagePreview()
 }
+
+document.addEventListener('wine-cellar:modal-content', initImagePreview)

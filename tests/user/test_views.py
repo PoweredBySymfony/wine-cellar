@@ -88,6 +88,34 @@ def test_signup_sends_branded_verification_email(client):
     assert "static/images/favicon.svg" in html
 
 
+@override_settings(
+    ENABLE_SIGNUPS=True,
+    SITE_URL="http://testserver",
+    ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION=True,
+)
+@pytest.mark.django_db
+def test_signup_email_confirmation_logs_user_in(client):
+    client.post(
+        reverse("account_signup"),
+        {
+            "email": "instant-cellar@example.com",
+            "password1": "A-strong-cellar-password-2026",
+            "password2": "A-strong-cellar-password-2026",
+        },
+    )
+    confirmation_url = next(
+        line.strip()
+        for line in mail.outbox[0].body.splitlines()
+        if "accounts/confirm-email/" in line
+    )
+
+    response = client.post(confirmation_url)
+
+    assertRedirects(response, reverse("homepage"), fetch_redirect_response=False)
+    assert "_auth_user_id" in client.session
+    assert EmailAddress.objects.get(email="instant-cellar@example.com").verified
+
+
 @pytest.mark.django_db
 def test_login_uses_email_and_password_visibility_markup(client):
     response = client.get(reverse("account_login"))
@@ -95,13 +123,14 @@ def test_login_uses_email_and_password_visibility_markup(client):
     assert response.status_code == HTTPStatus.OK
     assertContains(response, "Welcome back.")
     assertContains(response, 'type="email"')
-    assertContains(response, "Email me a secure sign-in link")
-    assert b'type="password"' not in response.content
+    assertContains(response, 'type="password"')
+    assertContains(response, "data-password-toggle")
+    assertContains(response, "Sign in")
+    assert b"Email me a secure sign-in link" not in response.content
 
 
 @pytest.mark.django_db
-def test_magic_login_sends_single_use_link_for_verified_user(client, user, settings):
-    settings.SITE_URL = "http://testserver"
+def test_login_accepts_verified_email_and_password(client, user):
     EmailAddress.objects.create(
         user=user,
         email=user.email,
@@ -109,42 +138,46 @@ def test_magic_login_sends_single_use_link_for_verified_user(client, user, setti
         primary=True,
     )
 
-    response = client.post(reverse("account_login"), {"email": user.email})
-
-    assertRedirects(response, reverse("magic-login-sent"))
-    assert len(mail.outbox) == 1
-    message = mail.outbox[0]
-    assert message.subject == "Votre lien de connexion Wine Cellar"
-    assert "accounts/login/magic/" in message.body
-    assert message.alternatives
-    assert "Me connecter à Wine Cellar" in message.alternatives[0].content
-
-    magic_url = next(
-        line for line in message.body.splitlines() if "accounts/login/magic/" in line
+    response = client.post(
+        reverse("account_login"),
+        {"email": user.email, "password": "password"},
     )
-    first_use = client.get(magic_url)
-    assertRedirects(
-        first_use,
-        reverse("homepage"),
-        fetch_redirect_response=False,
-    )
+
+    assertRedirects(response, reverse("homepage"), fetch_redirect_response=False)
     assert "_auth_user_id" in client.session
-
-    client.logout()
-    second_use = client.get(magic_url)
-    assertRedirects(second_use, reverse("account_login"))
-    assert "_auth_user_id" not in client.session
+    assert mail.outbox == []
 
 
 @pytest.mark.django_db
-def test_magic_login_does_not_reveal_unknown_or_unverified_email(client, user):
-    response = client.post(reverse("account_login"), {"email": "unknown@example.com"})
-    assertRedirects(response, reverse("magic-login-sent"))
+def test_login_rejects_wrong_password_without_sending_email(client, user):
+    EmailAddress.objects.create(
+        user=user,
+        email=user.email,
+        verified=True,
+        primary=True,
+    )
+
+    response = client.post(
+        reverse("account_login"),
+        {"email": user.email, "password": "wrong-password"},
+    )
+
+    assert response.status_code == HTTPStatus.OK
+    assert "_auth_user_id" not in client.session
     assert mail.outbox == []
 
+
+@pytest.mark.django_db
+def test_login_rejects_unverified_email(client, user):
     EmailAddress.objects.create(user=user, email=user.email, verified=False)
-    response = client.post(reverse("account_login"), {"email": user.email})
-    assertRedirects(response, reverse("magic-login-sent"))
+
+    response = client.post(
+        reverse("account_login"),
+        {"email": user.email, "password": "password"},
+    )
+
+    assert response.status_code == HTTPStatus.OK
+    assert "_auth_user_id" not in client.session
     assert mail.outbox == []
 
 

@@ -18,6 +18,7 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.auth.decorators import login_not_required
 from django.urls import include, path
 from django.views.i18n import JavaScriptCatalog
 
@@ -108,7 +109,11 @@ urlpatterns = [
     path("storage/history", StorageItemHistoryView.as_view(), name="stock-history"),
     path("health/", health_check, name="health_check"),
     path("", HomePageView.as_view(), name="homepage"),
-    path("jsi18n/", JavaScriptCatalog.as_view(), name="javascript-catalog"),
+    path(
+        "jsi18n/",
+        login_not_required(JavaScriptCatalog.as_view()),
+        name="javascript-catalog",
+    ),
 ]
 
 if settings.DEBUG:

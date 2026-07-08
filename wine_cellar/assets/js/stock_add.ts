@@ -15,6 +15,13 @@ function hideWarning() {
 }
 
 function updateStorageCells() {
+  const root = document.getElementById('stock-add-form')
+  if (root?.dataset.stockCellsReady === 'true') {
+    return
+  }
+  if (root) {
+    root.dataset.stockCellsReady = 'true'
+  }
   const storageSelect = document.getElementById(
     'id_storage'
   ) as HTMLSelectElement
@@ -117,4 +124,10 @@ function updateStorageCells() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', updateStorageCells)
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', updateStorageCells)
+} else {
+  updateStorageCells()
+}
+
+document.addEventListener('wine-cellar:modal-content', updateStorageCells)

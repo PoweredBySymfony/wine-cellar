@@ -198,7 +198,9 @@
                             {% endblocktranslate %}
                         </span>
                         <a href="{% url 'stock-add' wine.pk %}"
-                           class="pure-button button__primary"><i class="fa-regular fa-plus"></i> <span>{% translate "Add" %}</span></a>
+                           class="pure-button button__primary"
+                           data-modal-form="true"
+                           aria-haspopup="dialog"><i class="fa-regular fa-plus"></i> <span>{% translate "Add" %}</span></a>
                     </div>
                 </div>
                 {% if wine.get_stock %}
@@ -222,9 +224,9 @@
                                 <td>{{ item.column|default_if_none:"—" }}</td>
                                 <td>{{ item.drink_by|default_if_none:"—" }}</td>
                                 <td class="card__table-actions">
-                                    <a href="{% url 'stock-edit' item.pk %}" title="{% translate "Edit" %}" aria-label="{% translate "Edit" %}"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+                                    <a href="{% url 'stock-edit' item.pk %}" data-modal-form="true" aria-haspopup="dialog" title="{% translate "Edit" %}" aria-label="{% translate "Edit" %}"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
                                     {% if not item.opened %}
-                                        <a href="{% url 'stock-open' item.pk %}" title="{% translate "Open" %}" aria-label="{% translate "Open" %}"><i class="fa-solid fa-bottle-droplet" aria-hidden="true"></i></a>
+                                        <a href="{% url 'stock-open' item.pk %}" data-modal-form="true" aria-haspopup="dialog" title="{% translate "Open" %}" aria-label="{% translate "Open" %}"><i class="fa-solid fa-bottle-droplet" aria-hidden="true"></i></a>
                                     {% else %}
                                         <a href="{% url 'stock-undo-open' item.pk %}" title="{% translate "Undo Opening" %}" aria-label="{% translate "Undo Opening" %}"><i class="fa-solid fa-rotate-left" aria-hidden="true"></i></a>
                                     {% endif %}

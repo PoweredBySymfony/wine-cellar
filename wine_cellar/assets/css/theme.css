@@ -503,7 +503,7 @@ summary {
 
 .selection__layout {
   display: grid;
-  grid-template-columns: 280px minmax(0, 1fr);
+  grid-template-columns: minmax(240px, 280px) minmax(0, 1fr);
   gap: clamp(1.5rem, 3vw, 2.25rem);
   align-items: start;
 }
@@ -511,6 +511,8 @@ summary {
 .selection__filters {
   position: sticky;
   top: 88px;
+  min-width: 0;
+  box-sizing: border-box;
   padding: 1.5rem;
   background: rgb(255 255 255 / 66%);
   border: 1px solid var(--wine-border);
@@ -591,9 +593,35 @@ summary {
   box-shadow: none;
 }
 
+.selection__advanced fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.selection__advanced .form-container {
+  margin-bottom: 0.8rem;
+}
+
+.selection__advanced input,
+.selection__advanced select,
+.selection__advanced .ts-wrapper {
+  max-width: 100%;
+}
+
 .selection__filter-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
+}
+
+.selection__filter-actions .pure-button {
+  min-height: 44px;
+  flex: 1 1 8.5rem;
+  box-sizing: border-box;
+  text-align: center;
+  white-space: normal;
 }
 
 .selection__results {
@@ -801,6 +829,7 @@ summary {
 
   .selection__filters {
     position: static;
+    width: 100%;
   }
 }
 

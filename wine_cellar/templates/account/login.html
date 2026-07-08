@@ -9,15 +9,43 @@
     </header>
     <form class="pure-form" method="post" action="{% url 'account_login' %}">
         {% csrf_token %}
-        {% if form.non_field_errors %}<div class="form-errorlist">{{ form.non_field_errors }}</div>{% endif %}
+        {% if form.non_field_errors %}
+            <ul class="form-errorlist" aria-live="assertive" aria-atomic="true">
+                {% for error in form.non_field_errors %}<li>{{ error|escape }}</li>{% endfor %}
+            </ul>
+        {% endif %}
         <div class="form-container">
             <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
             {{ form.email }}
-            {% if form.email.errors %}<div class="form-errorlist">{{ form.email.errors }}</div>{% endif %}
+            {% if form.email.errors %}
+                <ul class="form-errorlist" aria-live="assertive" aria-atomic="true">
+                    {% for error in form.email.errors %}<li>{{ error|escape }}</li>{% endfor %}
+                </ul>
+            {% endif %}
         </div>
-        <button class="pure-button button__primary" type="submit">{% translate "Email me a secure sign-in link" %}</button>
+        <div class="form-container">
+            <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+            <span class="password-field">
+                {{ form.password }}
+                <button class="password-field__toggle"
+                        type="button"
+                        data-password-toggle
+                        aria-label="{% translate "Show password" %}"
+                        aria-pressed="false">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"></path>
+                        <circle cx="12" cy="12" r="2.5"></circle>
+                    </svg>
+                </button>
+            </span>
+            {% if form.password.errors %}
+                <ul class="form-errorlist" aria-live="assertive" aria-atomic="true">
+                    {% for error in form.password.errors %}<li>{{ error|escape }}</li>{% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <button class="pure-button button__primary" type="submit">{% translate "Sign in" %}</button>
     </form>
-    <p class="auth-card__privacy">{% translate "The link is personal, expires quickly and can only be used once." %}</p>
     <p class="auth-card__switch">
         {% translate "No account yet?" %} <a href="{% url 'account_signup' %}">{% translate "Create an account" %}</a>
     </p>

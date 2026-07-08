@@ -8,6 +8,9 @@ import type { TomSettings } from 'tom-select/dist/esm/types/settings.js'
 
 function initTomSelect(): void {
   document.querySelectorAll('select').forEach((el) => {
+    if (el.tomselect) {
+      return
+    }
     const rawConfig: string | undefined = el.dataset.tom_config
     const clear: boolean = Boolean(JSON.parse(el.dataset.clear ?? 'false'))
     const clearOpts: boolean = Boolean(
@@ -76,3 +79,5 @@ if (document.readyState === 'loading') {
 } else {
   initTomSelect()
 }
+
+document.addEventListener('wine-cellar:modal-content', initTomSelect)
